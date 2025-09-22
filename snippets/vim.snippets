@@ -1,0 +1,10 @@
+snippet auto
+	augroup ${1}
+		autocmd!
+		au ${2}
+	augroup END
+
+snippet func
+	function! ${1}() abort
+		${2}
+	endfunction

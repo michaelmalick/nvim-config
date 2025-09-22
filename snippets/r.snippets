@@ -1,0 +1,80 @@
+snippet for
+	for(${1:i} in ${2:1}:${3:10}) {
+		${0:# body}
+	}
+snippet func
+	function($1) {
+		${0:# body}
+	}
+snippet if
+	if(${1:condition}) {
+		${0:# body}
+	}
+snippet else
+	else {
+		$0
+	}
+snippet ifelse
+	if(${1:condition}) {
+		${2:# body}
+	} else {
+		${0: # body}
+	}
+snippet vec
+	vector("list", $0)
+snippet par
+	par(mfrow = c(1, 1),
+		mar = c(0, 0, 0, 0),
+		oma = c(4.0, 4.0, 0.5, 0.5))
+snippet box
+	box(col = "grey50")
+snippet axis
+	axis(side = 1, lwd = 0, lwd.tick = 1, col = "grey50")
+	axis(side = 2, lwd = 0, lwd.tick = 1, las = 1, col = "grey50")
+snippet mtext
+	mtext($1, side = 1, line = 3, cex = 1.0, col = "grey25")
+	mtext($0, side = 2, line = 3, cex = 1.0, col = "grey25")
+snippet mplot
+	plot($1,
+		 xlab = "",
+		 ylab = "",
+		 axes = FALSE,
+		 panel.first = grid(col = "grey65", lty = 1, lwd = 1))
+	axis(side = 1, lwd = 0, lwd.tick = 1, col = "grey65")
+	axis(side = 2, lwd = 0, lwd.tick = 1, las = 1, col = "grey65")
+snippet pplot
+	par(mfrow = c(1, 1),
+		mar = c(0, 0, 0, 0),
+		oma = c(4.0, 4.0, 0.5, 0.5),
+		ps = 12)
+	plot($1,
+		 xlab = "",
+		 ylab = "",
+		 axes = FALSE)
+	box(col = "grey50")
+	axis(side = 1, lwd = 0, lwd.tick = 1, col = "grey50")
+	axis(side = 2, lwd = 0, lwd.tick = 1, las = 1, col = "grey50")
+	mtext("$2", side = 1, line = 3, cex = 1.0, col = "grey25")
+	mtext("$3", side = 2, line = 3, cex = 1.0, col = "grey25")
+snippet order
+	## c(bottom, left, top, right)
+snippet jpeg
+	jpeg($1, width = ${2:5}, height = ${3:5}, res = 300, units = "in")
+snippet png
+	png($1, width = ${2:5}, height = ${3:5}, res = 300, units = "in")
+snippet gg
+	g <- ggplot($1) +
+		geom_${2:point}($3)$0
+	print(g)
+# snippet aes
+# 	aes(x = $1, y = $0)
+snippet hline
+	geom_hline(yintercept = 0, color = "grey50", linetype = 2) +
+snippet vline
+	geom_vline(xintercept = 0, color = "grey50", linetype = 2) +
+snippet nolegend
+	theme(legend.position = "none")
+snippet color
+    scale_color_manual(values = M1) +
+snippet fill
+    scale_color_manual(values = M1) +
