@@ -45,7 +45,6 @@ set termguicolors
 set background=dark
 silent! colorscheme solarized-dark
 
-"" highlight yanked text
 augroup highlight_yank
     autocmd!
     au TextYankPost * silent! lua vim.highlight.on_yank {higroup = 'Visual', timeout = 300}
@@ -138,7 +137,7 @@ inoremap <silent> <F2> <C-r>=repeat('#', 61-virtcol('.'))<CR>
 nnoremap <silent> gh :nohlsearch<CR>
 
 "" notes and files
-nnoremap <silent> <leader>1 :edit ~/notes/notes.md<CR>
+nnoremap <silent> <leader>1 :edit ~/.notes.md<CR>
 nnoremap <silent> <leader>9 :edit ~/Documents/research/<CR>
 
 "" tabs
@@ -693,6 +692,7 @@ EOF
 lua << EOF
 require('telescope').setup {
   defaults = {
+    selection_caret = "→ ",
     preview = {
       hide_on_startup = true,
     },

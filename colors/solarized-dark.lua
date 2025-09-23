@@ -85,7 +85,7 @@ hi(0, "lCursor", {link = "Cursor"})
 hi(0, "CursorIM", {link = "Cursor"})
 hi(0, "CursorColumn", {link = "CursorLine"})
 hi(0, "CursorLine", {bg = base1})
-hi(0, "Directory", {fg = magenta_a})
+hi(0, "Directory", {fg = blue_a})
 hi(0, "DiffAdd", {fg = green_a, bg = base1})
 hi(0, "DiffChange", {fg = blue_a, bg = base1})
 hi(0, "DiffDelete", {fg = red_a, bg = base1})
@@ -334,9 +334,11 @@ hi(0, "SneakScope", {fg = base1, bg = base7, bold = true})
 hi(0, "DirbufHash", {link = "Comment"})
 hi(0, "DirbufDirectory", {link = "Directory"})
 hi(0, "LocalHighlight", {bg=base2})
-hi(0, "TelescopeSelection", {link = "CursorLine"})
+hi(0, "TelescopeSelection", {fg = cyan_a, bg = base1})
 hi(0, "TelescopePreviewLine", {link = "CursorLine"})
-hi(0, "TelescopeMatching", {bg=base1, fg = magenta_b})
+hi(0, "TelescopeMatching", {link = "IncSearch"})
+hi(0, "TelescopeSelectionCaret", {fg = red_a})
+
 
 
 -- Terminal

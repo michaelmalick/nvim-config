@@ -85,7 +85,7 @@ hi(0, "lCursor", {link = "Cursor"})
 hi(0, "CursorIM", {link = "Cursor"})
 hi(0, "CursorColumn", {link = "CursorLine"})
 hi(0, "CursorLine", {bg = base1})
-hi(0, "Directory", {fg = magenta_a})
+hi(0, "Directory", {fg = blue_a})
 hi(0, "DiffAdd", {fg = green_a, bg = base1})
 hi(0, "DiffChange", {fg = blue_a, bg = base1})
 hi(0, "DiffDelete", {fg = red_a, bg = base1})
@@ -115,8 +115,6 @@ hi(0, "MoreMsg", {link = "ModeMsg"})
 hi(0, "NonText", {fg = base3})
 hi(0, "NormalFloat", {link = "PMenu"})
 hi(0, "FloatBorder", {fg = base2, bg = base1})
-hi(0, "FloatTitle", {link ="Title"})
-hi(0, "FloatFooter", {link ="Title"})
 hi(0, "NormalNC", {link = "Normal"})
 hi(0, "PMenu", {fg = base6, bg = base1})
 hi(0, "PMenuSel", {fg = base0, bg = blue_a})
@@ -336,25 +334,27 @@ hi(0, "SneakScope", {fg = base1, bg = base7, bold = true})
 hi(0, "DirbufHash", {link = "Comment"})
 hi(0, "DirbufDirectory", {link = "Directory"})
 hi(0, "LocalHighlight", {bg=base2})
-hi(0, "TelescopeSelection", {link = "CursorLine"})
+hi(0, "TelescopeSelection", {fg = cyan_a, bg = base1})
 hi(0, "TelescopePreviewLine", {link = "CursorLine"})
-hi(0, "TelescopeMatching", {bg=base2, fg = magenta_b})
+hi(0, "TelescopeMatching", {link = "IncSearch"})
+hi(0, "TelescopeSelectionCaret", {fg = red_a})
+
 
 
 -- Terminal
-vim.g.terminal_color_0  = base7
+vim.g.terminal_color_0  = base0
 vim.g.terminal_color_1  = red_a
 vim.g.terminal_color_2  = green_a
 vim.g.terminal_color_3  = yellow_a
 vim.g.terminal_color_4  = blue_a
 vim.g.terminal_color_5  = magenta_a
 vim.g.terminal_color_6  = cyan_a
-vim.g.terminal_color_7  = base2
-vim.g.terminal_color_8  = base5
+vim.g.terminal_color_7  = base5
+vim.g.terminal_color_8  = base2
 vim.g.terminal_color_9  = red_b
 vim.g.terminal_color_10 = green_b
 vim.g.terminal_color_11 = yellow_b
 vim.g.terminal_color_12 = blue_b
 vim.g.terminal_color_13 = magenta_b
 vim.g.terminal_color_14 = cyan_b
-vim.g.terminal_color_15 = base0
+vim.g.terminal_color_15 = base7
