@@ -598,6 +598,11 @@ if has('unix') || has('macunix')
     :lua vim.g.nss_options = {python = {open_cmd = 'source .venv/bin/activate ; python3'}}
 endif
 
+augroup mjm_python
+    autocmd!
+    au FileType python nnoremap <silent> <leader>mf :%!ruff format -<CR>
+augroup END
+
 
 " diffview
 :packadd! diffview.nvim
