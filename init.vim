@@ -393,6 +393,21 @@ endfunc
 command! StripWhitespace call <SID>strip_whitespace()
 
 
+"" :Scratch
+function! Scratch(...)
+    enew
+    file SCRATCH
+    setlocal buftype=nofile
+    setlocal noswapfile
+
+    if a:0 > 0
+        execute 'setlocal filetype=' . a:1
+    endif
+endfunction
+
+command! -nargs=? Scratch call Scratch(<f-args>)
+
+
 
 "" cmdwin + help -------------------------------------------
 augroup mjm_misc
@@ -585,8 +600,8 @@ augroup END
 function! s:nss_map_leader() abort
     nnoremap <silent> <leader>mo :<C-U>NSSopen<CR>
     nnoremap <silent> <leader>mq :<C-U>NSSclose<CR>
-    nnoremap <leader>mi :NSSinspect 
-    xnoremap <leader>mi :NSSinspect 
+    nnoremap <leader>mi :NSSinspect
+    xnoremap <leader>mi :NSSinspect
     nnoremap <silent> <leader>ms :<C-U>NSSsource<CR>
     nnoremap <silent> <leader>mc :<C-U>NSSsend <CR>
     nnoremap <silent> <leader>mx :<C-U>NSSinterrupt<CR>
@@ -726,4 +741,3 @@ nnoremap <silent> go. <cmd>Telescope resume<CR>
 
 
 "" testing -------------------------------------------------
-
