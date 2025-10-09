@@ -615,7 +615,10 @@ endif
 
 augroup mjm_python
     autocmd!
-    au FileType python nnoremap <silent> <leader>mf :%!ruff format -<CR>
+    au FileType python nnoremap <silent> <leader>mf :!ruff format %<CR>
+    au FileType python nnoremap <silent> <leader>mF :!ruff format .<CR>
+    au FileType python nnoremap <silent> <leader>mq :!ruff check --fix %<CR>
+    au FileType python nnoremap <silent> <leader>mQ :!ruff check --fix .<CR>
 augroup END
 
 
