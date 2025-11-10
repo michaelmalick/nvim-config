@@ -600,8 +600,8 @@ augroup END
 function! s:nss_map_leader() abort
     nnoremap <silent> <leader>mo :<C-U>NSSopen<CR>
     nnoremap <silent> <leader>mq :<C-U>NSSclose<CR>
-    nnoremap <leader>mi :NSSinspect
-    xnoremap <leader>mi :NSSinspect
+    nnoremap <leader>mi :NSSinspect 
+    xnoremap <leader>mi :NSSinspect 
     nnoremap <silent> <leader>ms :<C-U>NSSsource<CR>
     nnoremap <silent> <leader>mc :<C-U>NSSsend <CR>
     nnoremap <silent> <leader>mx :<C-U>NSSinterrupt<CR>
@@ -617,8 +617,8 @@ augroup mjm_python
     autocmd!
     au FileType python nnoremap <silent> <leader>mf :!ruff format %<CR>
     au FileType python nnoremap <silent> <leader>mF :!ruff format .<CR>
-    au FileType python nnoremap <silent> <leader>mq :!ruff check --fix %<CR>
-    au FileType python nnoremap <silent> <leader>mQ :!ruff check --fix .<CR>
+    au FileType python nnoremap <silent> <leader>mk :!ruff check --fix %<CR>
+    au FileType python nnoremap <silent> <leader>mK :!ruff check --fix .<CR>
 augroup END
 
 
