@@ -4,8 +4,8 @@
 "" nvim base settings --------------------------------------
 set ignorecase                 " Case insensitive search
 set smartcase                  " Case sensitive when uppercase present
-set noshowmode                 " Don't show mode in cmd line
 set wildignorecase             " Ignore case in mini-buffer completion
+set noshowmode                 " Don't show mode in cmd line
 set linebreak                  " Lines break at spaces
 set foldlevel=10               " Open 10 fold levels on buffer entry
 set path+=**                   " Search sub-directories too
@@ -27,15 +27,6 @@ set textwidth=80               " Wrap text at column 80
 set list lcs=trail:·,tab:»·    " Show invisibles
 set winborder=single           " Floating window borders
 exe 'set spellfile='.stdpath('config')."/spell/en.utf-8.add"
-
-
-
-"" don't load builtin plugins ------------------------------
-let g:loaded_rplugin = 1
-let g:loaded_tarPlugin = 1
-let g:loaded_zipPlugin = 1
-let g:loaded_gzip = 1
-let g:loaded_2html_plugin = 1
 
 
 
@@ -129,20 +120,13 @@ let mapleader = ' '
 let maplocalleader = '\'
 nnoremap j gj
 nnoremap k gk
-nnoremap Y y$
 nnoremap <BS> <C-^>
-inoremap <silent> <F1> <C-r>=repeat('-', 61-virtcol('.'))<CR>
 inoremap <silent> <C-]> <C-r>=repeat('-', 61-virtcol('.'))<CR>
-inoremap <silent> <F2> <C-r>=repeat('#', 61-virtcol('.'))<CR>
 nnoremap <silent> gh :nohlsearch<CR>
 
 "" notes and files
 nnoremap <silent> <leader>1 :edit ~/.notes.md<CR>
 nnoremap <silent> <leader>9 :edit ~/Documents/research/<CR>
-
-"" tabs
-nnoremap <silent> <leader>tn :tabnew<CR>
-nnoremap <silent> <leader>tc :tabclose<CR>
 
 "" vimrc
 let g:myvimrc = stdpath('config')."/init.vim"
@@ -153,9 +137,6 @@ xnoremap <silent> az :<C-U> normal! [zV]z<CR>
 xnoremap <silent> iz :<C-U> normal! [zjV]zk<CR>
 onoremap <silent> az :<C-U> normal! [zV]z<CR>
 onoremap <silent> iz :<C-U> normal! [zjV]zk<CR>
-
-"" fix last spelling error
-nnoremap <silent> <leader>s :normal! mr[s1z=`r<CR>
 
 
 
@@ -220,30 +201,6 @@ augroup END
 
 
 
-"" zoom ----------------------------------------------------
-function! s:zoom(amount) abort
-    call <SID>zoom_set(matchstr(&guifont, '\d\+$') + a:amount)
-endfunc
-function! s:zoom_set(font_size) abort
-    if has('win32') || has('win64')
-        exe 'Guifont! ' . substitute(&guifont, '\d\+$', a:font_size, '')
-    else
-        let &guifont = substitute(&guifont, '\d\+$', a:font_size, '')
-    endif
-endfunc
-
-noremap <silent> <C-=> :call <SID>zoom(v:count1)<CR>
-if has('win32') || has('win64')
-    noremap <silent> <C--> :call <SID>zoom(-v:count1)<CR>
-    noremap <silent> <C-0> :call <SID>zoom_set(10)<CR>
-else
-    "" need to set on mac by typing <C-v><C-->
-    noremap <silent>  :call <SID>zoom(-v:count1)<CR>
-    noremap <silent> <C-0> :call <SID>zoom_set(12)<CR>
-endif
-
-
-
 "" commands + functions ------------------------------------
 
 "" :CD
@@ -272,42 +229,12 @@ function! s:get_git_root() abort
 endfunc
 
 
-"" :Tags
-function! s:run_ctags(prompt) abort
-    if a:prompt
-        call inputsave()
-        let l:ans = input('Create tags for ' . getcwd() . '? (y/n) ')
-            if l:ans ==# 'y'
-                exe '!ctags -R'
-            else
-                return
-            endif
-        call inputrestore()
-    else
-        exe '!ctags -R'
-    endif
-endfunc
-command! Tags call <SID>run_ctags(1)
-
-
 "" :SyntaxEcho
 function! s:syntax_echo() abort
     let l:s = synID(line('.'), col('.'), 1)
     echo synIDattr(l:s, 'name') . ' -> ' . synIDattr(synIDtrans(l:s), 'name')
 endfunc
 command! SyntaxEcho call <SID>syntax_echo()
-
-
-"" :ToggleWindowSize
-function! s:toggle_window_size() abort
-    if &co < 84
-        :set co=166 lines=40
-    else
-        :set co=83 lines=30
-    endif
-endfunc
-command! ToggleWindowSize call <SID>toggle_window_size()
-nnoremap <silent> yoz :ToggleWindowSize<CR>
 
 
 "" :ToggleQuickfix
@@ -341,20 +268,6 @@ command! ToggleLocation call <SID>toggle_location()
 nnoremap <silent> yok :ToggleLocation<CR>
 
 
-"" :ToggleModifiable
-function! s:toggle_modifiable() abort
-    if &modifiable == 1
-        setlocal nomodifiable
-        echo "Buffer is not modifiable."
-    else
-        setlocal modifiable
-        echo "Buffer is modifiable."
-    endif
-endfunc
-command! ToggleModifiable call <SID>toggle_modifiable()
-nnoremap <silent> yom :ToggleModifiable<CR>
-
-
 "" :CleanText
 function! s:clean_text() range abort
     exe (a:firstline) . "," . a:lastline . 's/\$/\\$/ge'
@@ -373,13 +286,6 @@ function! s:backslash_replace() range abort
     exe (a:firstline) . "," . a:lastline . 's/\\/\//ge'
 endfunc
 command! -range BackslashReplace <line1>,<line2>call <SID>backslash_replace()
-
-
-"" :Convert2Unix
-function! s:convert_2_unix() abort
-    :set ff=unix
-endfunc
-command! Convert2Unix call <SID>convert_2_unix()
 
 
 "" :StripWhitespace
@@ -439,20 +345,6 @@ augroup END
 
 
 
-"" tex -----------------------------------------------------
-"" runtime filetype
-let g:tex_comment_nospell=1
-let g:tex_no_error=1   " to many false positives
-let g:tex_flavor='latex'
-
-augroup mjm_tex
-    autocmd!
-    au FileType tex setlocal ts=2 shiftwidth=2 softtabstop=2
-    au FileType tex setlocal spell spelllang=en_us
-augroup END
-
-
-
 "" rstats --------------------------------------------------
 augroup mjm_rstats
     autocmd!
@@ -495,7 +387,7 @@ nnoremap <silent>got :<C-U>Floaterminal<CR>
 :packadd! vim-commentary
 :packadd! vim-eunuch
 :packadd! vim-unimpaired
-:packadd! vader.vim
+
 
 "" flutter
 :packadd! plenary.nvim
@@ -555,7 +447,7 @@ let g:undotree_SetFocusWhenToggle = 1
 
 "" bufexplorer
 :packadd! bufexplorer
-nnoremap <leader>, :BufExplorer<CR>
+" nnoremap <leader>, :BufExplorer<CR>
 let g:bufExplorerDefaultHelp = 0
 let g:bufExplorerShowRelativePath = 1
 let g:bufExplorerSplitBelow = 1
@@ -725,8 +617,16 @@ require('telescope').setup {
         prompt_position = "top",
     },
   },
+  pickers = {
+    buffers = {
+      sort_lastused = true
+    }
+  }
 }
 EOF
+
+nnoremap <leader><leader> <cmd>Telescope find_files theme=dropdown<CR>
+nnoremap <leader>, <cmd>Telescope buffers theme=dropdown<CR>
 
 nnoremap <silent> gof <cmd>Telescope find_files theme=dropdown<CR>
 nnoremap <silent> goo <cmd>Telescope oldfiles theme=dropdown<CR>
