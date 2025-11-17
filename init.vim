@@ -586,15 +586,8 @@ EOF
 "" lualine
 :packadd! lualine.nvim
 lua << EOF
-if vim.fn.has('win32') == 1 or vim.fn.has('win64') == 1 then
-    icons=false
-else
-    icons=true
-end
-
 require('lualine').setup({
     options={
-        icons_enabled = icons,
         section_separators = {left = '', right = ''},
         component_separators = {left = '|', right = '|'},
     },
