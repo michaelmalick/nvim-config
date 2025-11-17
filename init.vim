@@ -605,6 +605,8 @@ require('telescope').setup {
       hide_on_startup = true,
     },
     sorting_strategy = "ascending",
+    file_sorter = require('telescope.sorters').get_substr_matcher,
+    generic_sorter = require('telescope.sorters').get_substr_matcher,
     layout_config = {
         center = { width = 0.9 },
         prompt_position = "top",
