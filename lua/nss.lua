@@ -579,7 +579,7 @@ end
 
 -- Regions -------------------------------------------------
 function nss.marked_region(mark1, mark2, mode)
-    --- Get inputs to `vim.region` for region between two marks.
+    --- Get inputs to `getregionpos` for region between two marks.
     -- @param mark1 (string) start mark for region
     -- @param mark2 (string) end mark for region
     -- @param mode (string) type of visual mode, see :h visualmode()
@@ -588,42 +588,20 @@ function nss.marked_region(mark1, mark2, mode)
     --   pos1: {line, column} of mark1
     --   pos2: {line, column} of mark2
     --   mode: visual mode
-    --   inclusive: boolean specifying if region positions are inclusive
+    --   exclusive: boolean specifying if region positions are exclusive
     assert(type(mark1) == 'string', 'Expected a string.')
     assert(type(mark2) == 'string', 'Expected a string.')
     assert(type(mode) == 'string', 'Expected a string.')
 
     local pos1 = vim.fn.getpos(mark1)
     local pos2 = vim.fn.getpos(mark2)
-    pos1 = {pos1[2] - 1, pos1[3] - 1 + pos1[4]}
-    pos2 = {pos2[2] - 1, pos2[3] - 1 + pos2[4]}
-
-    -- Return if start or finish are invalid
-    if pos1[2] < 0 or pos2[1] < pos1[1] then return end
-
-    -- Handle blockwise mode
-    -- BUG: when block starts in topright or bottomleft the correct text isn't
-    -- sent. As far as I can tell, this is a bug in vim.region
-    if string.byte(mode) == 22 and #mode == 1 then
-        local width = math.abs(pos2[2] - pos1[2]) + 1
-        mode = [[]] .. width
-    end
-
-    -- Get current buffer number
     local bufnr = api.nvim_get_current_buf()
-
-    -- Linewise: capture entire start and finish lines
-    if mode == 'V' then
-        local lines = api.nvim_buf_get_lines(bufnr, pos1[1], pos2[1] + 1, false)
-        pos1[2] = 0
-        pos2[2] = #lines[#lines]
-    end
 
     return {bufnr = bufnr,
             pos1 = pos1,
             pos2 = pos2,
             mode = mode,
-            inclusive = (vim.o.selection ~= 'exclusive')}
+            exclusive = (vim.o.selection == 'exclusive')}
 end
 
 function nss.get_marked_text(mark1, mark2, mode)
@@ -636,27 +614,9 @@ function nss.get_marked_text(mark1, mark2, mode)
     local m = nss.marked_region(mark1, mark2, mode)
     if not m then return end
 
-    local region = vim.region(m.bufnr,
-                              m.pos1,
-                              m.pos2,
-                              m.mode,
-                              m.inclusive)
+    return vim.fn.getregion(m.pos1, m.pos2,
+                            {type = m.mode, exclusive = m.exclusive})
 
-    -- Get lines in region
-    local lines = api.nvim_buf_get_lines(m.bufnr, m.pos1[1], m.pos2[1] + 1, false)
-
-    -- charwise and blockwise
-    if mode ~= 'V' then
-        local I = m.pos1[1]
-        for i = 1,#lines do
-            local c1 = region[I][1] + 1
-            local c2 = region[I][2]
-            lines[i] = string.sub(lines[i], c1, c2)
-            I = I + 1
-        end
-    end
-
-    return lines
 end
 
 function nss.blink_region(mark1, mark2, mode, opts)
@@ -667,7 +627,7 @@ function nss.blink_region(mark1, mark2, mode, opts)
     -- @parm opts = table of option with keys:
     --    higroup = highlight group for blink (default: 'IncSearch')
     --    timeout = time in ms to blink for (default: 150)
-    --    priority = highlight priority (default: vim.highlight.priorities.user)
+    --    priority = highlight priority (default: vim.hl.priorities.user)
     opts = opts or {}
 
     local m = nss.marked_region(mark1, mark2, mode)
@@ -679,14 +639,17 @@ function nss.blink_region(mark1, mark2, mode, opts)
     local priority = opts.priority or vim.g.nss_options.blink.priority
     api.nvim_buf_clear_namespace(m.bufnr, send_ns, 0, -1)
 
-    vim.highlight.range(m.bufnr,
-                        send_ns,
-                        higroup,
-                        m.pos1,
-                        m.pos2,
-                        {regtype = m.mode,
-                         inclusive = m.inclusive,
-                         priority = priority})
+    local pos1 = {m.pos1[2] - 1, m.pos1[3] - 1 + m.pos1[4]}
+    local pos2 = {m.pos2[2] - 1, m.pos2[3] - 1 + m.pos2[4]}
+
+    vim.hl.range(m.bufnr,
+                 send_ns,
+                 higroup,
+                 pos1,
+                 pos2,
+                 {regtype = m.mode,
+                  inclusive = m.exclusive ~= 'exclusive',
+                  priority = priority})
 
     -- Clear timer
     local blink_timer
@@ -1164,7 +1127,7 @@ function nss.options()
     o.blink = o.blink or {}
     o.blink.higroup = o.blink.higroup or 'IncSearch'
     o.blink.timeout = o.blink.timeout or 150
-    o.blink.priority = o.blink.priority or vim.highlight.priorities.user
+    o.blink.priority = o.blink.priority or vim.hl.priorities.user
 
     o.r = o.r or {}
     o.r.open_cmd = o.r.open_cmd or 'R'
