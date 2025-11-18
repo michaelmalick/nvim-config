@@ -509,7 +509,7 @@ function nss.open(cmd)
 
     local vars = nss.scripts[start_bufnr]
     local open_cmd = vim.g.nss_options[vars.dialect]['open_cmd']
-    local id = vim.fn.termopen(open_cmd)
+    local id = vim.fn.jobstart(open_cmd, {term = true})
     nss.register_target(vars.dialect, target_bufnr, id)
 
     api.nvim_set_current_win(start_winid)
