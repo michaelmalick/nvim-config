@@ -502,7 +502,7 @@ function! s:nss_map_leader() abort
     endif
 endfunc
 if has('unix') || has('macunix')
-    :lua vim.g.nss_options = {python = {open_cmd = 'source .venv/bin/activate ; python3'}}
+    :lua vim.g.nss_options = {python = {open_cmd = 'python3', send_type='bracketed'}}
 endif
 
 augroup mjm_python

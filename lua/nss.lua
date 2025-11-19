@@ -235,8 +235,8 @@ function nss.bracketed_paste(lines)
     -- end:   ESC [ 201 ~
     -- see: https://cirw.in/blog/bracketed-paste
 
-    local bp_start = [[ \27[200~ ]]
-    local bp_end = [[ \27[201~ ]]
+    local bp_start = "\27[200~"
+    local bp_end = "\27[201~"
 
     local out
     if #lines == 1 then
@@ -248,6 +248,7 @@ function nss.bracketed_paste(lines)
         end
 
         table.insert(out, bp_end)
+        table.insert(out, "")
     end
 
     return out
