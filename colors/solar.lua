@@ -1,4 +1,4 @@
--- atmos-light.nvim -- a light neovim color theme
+-- solar.nvim -- a solarized neovim color theme
 --
 -- Version: 0.1
 -- Designer: Michael Malick
@@ -8,29 +8,145 @@
 
 vim.cmd("hi clear")
 if vim.fn.exists("syntax_on") then vim.cmd("syntax reset") end
-vim.g.colors_name = "atmos-light"
+vim.g.colors_name = "solar"
 local hi = vim.api.nvim_set_hl
 
-local base0     = "#EEF4FC"
-local base1     = "#E7EDF5"
-local base2     = "#C4CAD1"
-local base3     = "#8F959C"
-local base4     = "#7B8087"
-local base5     = "#4B5057"
-local base6     = "#2E333A"
-local base7     = "#272D34"
-local red_a     = "#A5243A"
-local yellow_a  = "#9A723D"
-local green_a   = "#4C8351"
-local cyan_a    = "#428180"
-local blue_a    = "#527BA1"
-local magenta_a = "#70448F"
-local red_b     = "#CD2343"
-local yellow_b  = "#BF8200"
-local green_b   = "#359F42"
-local cyan_b    = "#009C9A"
-local blue_b    = "#3492D2"
-local magenta_b = "#9248C0"
+local base0
+local base1
+local base2
+local base3
+local base4
+local base5
+local base6
+local base7
+local magenta_a
+local red_a
+local yellow_a
+local green_a
+local cyan_a
+local blue_a
+local magenta_m
+local red_m
+local yellow_m
+local green_m
+local cyan_m
+local blue_m
+local magenta_b
+local red_b
+local yellow_b
+local green_b
+local cyan_b
+local blue_b
+local magenta_h
+local red_h
+local yellow_h
+local green_h
+local cyan_h
+local blue_h
+local magenta_l
+local red_l
+local yellow_l
+local green_l
+local cyan_l
+local blue_l
+local magenta_d
+local red_d
+local yellow_d
+local green_d
+local cyan_d
+local blue_d
+
+if vim.o.background == 'dark' then
+    base0     = "#002B36"
+    base1     = "#13333D"
+    base2     = "#203B44"
+    base3     = "#475C64"
+    base4     = "#6F8188"
+    base5     = "#88999F"
+    base6     = "#C1D0D6"
+    base7     = "#DAE8ED"
+    magenta_a = "#878BDE"
+    red_a     = "#FC5250"
+    yellow_a  = "#D1A33F"
+    green_a   = "#9FB43F"
+    cyan_a    = "#53BCB3"
+    blue_a    = "#53A5EC"
+    magenta_m = "#7174BD"
+    red_m     = "#DA3E3B"
+    yellow_m  = "#B08831"
+    green_m   = "#859733"
+    cyan_m    = "#509C95"
+    blue_m    = "#428AC8"
+    magenta_b = "#9A9EFF"
+    red_b     = "#FF7271"
+    yellow_b  = "#EDB134"
+    green_b   = "#ABC733"
+    cyan_b    = "#37D5C7"
+    blue_b    = "#6AB8FF"
+    magenta_h = "#3E4181"
+    red_h     = "#900601"
+    yellow_h  = "#694E00"
+    green_h   = "#4B5800"
+    cyan_h    = "#1C5C57"
+    blue_h    = "#005180"
+    magenta_l = "#363755"
+    red_l     = "#443434"
+    yellow_l  = "#4B4030"
+    green_l   = "#404335"
+    cyan_l    = "#284845"
+    blue_l    = "#303F53"
+    magenta_d = "#00117F"
+    red_d     = "#510000"
+    yellow_d  = "#3A2800"
+    green_d   = "#262F00"
+    cyan_d    = "#00312E"
+    blue_d    = "#002B47"
+else
+    base0     = "#FDF6E3"
+    base1     = "#F1EDD9"
+    base2     = "#E5E4D0"
+    base3     = "#B8C2AF"
+    base4     = "#8D9F91"
+    base5     = "#768A80"
+    base6     = "#475C5B"
+    base7     = "#374A4C"
+    magenta_a = "#6C71C4"
+    red_a     = "#DC322F"
+    yellow_a  = "#B58900"
+    green_a   = "#859900"
+    cyan_a    = "#2AA198"
+    blue_a    = "#268BD2"
+    magenta_m = "#8185CC"
+    red_m     = "#EF514F"
+    yellow_m  = "#C29A49"
+    green_m   = "#96A84A"
+    cyan_m    = "#64ADA6"
+    blue_m    = "#5A9BDA"
+    magenta_b = "#6D76FF"
+    red_b     = "#FF2F2F"
+    yellow_b  = "#D18F24"
+    green_b   = "#89A824"
+    cyan_b    = "#26BCAA"
+    blue_b    = "#3D9AFF"
+    magenta_h = "#C8CBFA"
+    red_h     = "#FFBCBB"
+    yellow_h  = "#F0D3A5"
+    green_h   = "#D0DCA8"
+    cyan_h    = "#9FE4DD"
+    blue_h    = "#B6D5FF"
+    magenta_l = "#E7E8FF"
+    red_l     = "#FFE3E3"
+    yellow_l  = "#FFEBD0"
+    green_l   = "#E9F2CC"
+    cyan_l    = "#D1F5F1"
+    blue_l    = "#E1EDFF"
+    magenta_d = "#CFD2FF"
+    red_d     = "#FFC6C5"
+    yellow_d  = "#F6D8AB"
+    green_d   = "#D6E2AD"
+    cyan_d    = "#A5EAE2"
+    blue_d    = "#C1DBFF"
+end
 
 hi(0, "Normal", {fg = base7, bg = base0})
 
@@ -40,8 +156,8 @@ hi(0, "Constant", {fg = cyan_a})
 hi(0, "String", {fg = base5, italic = true})
 hi(0, "Identifier", {fg = blue_a})
 hi(0, "Function", {fg = blue_a})
-hi(0, "Operator", {fg = base5})
-hi(0, "Statement", {fg = base5})
+hi(0, "Operator", {fg = green_a})
+hi(0, "Statement", {fg = magenta_a})
 hi(0, "PreProc", {fg = yellow_a})
 hi(0, "Type", {fg = magenta_a})
 hi(0, "Special", {fg = yellow_a})
@@ -61,7 +177,7 @@ hi(0, "lCursor", {link = "Cursor"})
 hi(0, "CursorIM", {link = "Cursor"})
 hi(0, "CursorColumn", {link = "CursorLine"})
 hi(0, "CursorLine", {bg = base1})
-hi(0, "Directory", {fg = magenta_a})
+hi(0, "Directory", {fg = blue_a})
 hi(0, "DiffAdd", {fg = green_a, bg = base1})
 hi(0, "DiffChange", {fg = blue_a, bg = base1})
 hi(0, "DiffDelete", {fg = red_a, bg = base1})
@@ -75,7 +191,7 @@ hi(0, "VertSplit", {link = "WinSeparator"})
 hi(0, "Folded", {link = "Normal"})
 hi(0, "FoldColumn", {fg = base3})
 hi(0, "SignColumn", {link = "FoldColumn"})
-hi(0, "IncSearch", {fg = base0, bg = red_a})
+hi(0, "IncSearch", {fg = red_b, bg = red_d})
 hi(0, "Substitute", {link = "IncSearch"})
 hi(0, "LineNr", {fg = base3})
 hi(0, "LineNrAbove", {link = "LineNr"})
@@ -91,8 +207,6 @@ hi(0, "MoreMsg", {link = "ModeMsg"})
 hi(0, "NonText", {fg = base3})
 hi(0, "NormalFloat", {link = "PMenu"})
 hi(0, "FloatBorder", {fg = base2, bg = base1})
-hi(0, "FloatTitle", {link ="Title"})
-hi(0, "FloatFooter", {link ="Title"})
 hi(0, "NormalNC", {link = "Normal"})
 hi(0, "PMenu", {fg = base6, bg = base1})
 hi(0, "PMenuSel", {fg = base0, bg = blue_a})
@@ -100,7 +214,7 @@ hi(0, "PMenuSbar", {fg = base4, bg = base2})
 hi(0, "PMenuThumb", {fg = base4, bg = base2})
 hi(0, "Question", {fg = cyan_a})
 hi(0, "QuickFixLine", {link = "Special"})
-hi(0, "Search", {fg = base0, bg = base4})
+hi(0, "Search", {fg = green_b, bg = green_d})
 hi(0, "SpecialKey", {fg = base7})
 hi(0, "SpellBad", {sp = red_a, undercurl = true})
 hi(0, "SpellCap", {sp = red_a, undercurl = true})
@@ -114,8 +228,8 @@ hi(0, "TabLine", {link = "StatusLine"})
 hi(0, "TabLineFill", {link = "TabLine"})
 hi(0, "TabLineSel", {fg = base6, bg = base0, bold = true})
 hi(0, "Title", {fg = blue_a})
-hi(0, "Visual", {bg = base2})
-hi(0, "VisualNOS", {bg = base2})
+hi(0, "Visual", {bg = blue_h})
+hi(0, "VisualNOS", {bg = blue_h})
 hi(0, "WarningMsg", {fg = yellow_a})
 hi(0, "Whitespace", {link = "Comment"})
 hi(0, "WildMenu", {link = "PMenuSel"})
@@ -303,34 +417,31 @@ hi(0, "gvAuthor", {link = "gitIdentity"})
 hi(0, "gvDate", {link = "gitDate"})
 hi(0, "gvSha", {link = "gitHash"})
 hi(0, "gvTag", {link = "Tag"})
-hi(0, "bufExplorerCurBuf", {fg = magenta_a})
-hi(0, "bufExplorerAltBuf", {fg = cyan_a})
-hi(0, "bufExplorerHidBuf", {link = "Normal"})
-hi(0, "bufExplorerActBuf", {fg = base5})
 hi(0, "Sneak", {link = "IncSearch"})
 hi(0, "SneakScope", {fg = base1, bg = base7, bold = true})
-hi(0, "DirbufHash", {link = "Comment"})
-hi(0, "DirbufDirectory", {link = "Directory"})
 hi(0, "LocalHighlight", {bg=base2})
-hi(0, "TelescopeSelection", {link = "CursorLine"})
+hi(0, "TelescopeSelection", {fg = cyan_a, bg = base1})
 hi(0, "TelescopePreviewLine", {link = "CursorLine"})
-hi(0, "TelescopeMatching", {bg=base2, fg = magenta_b})
+hi(0, "TelescopeMatching", {link = "IncSearch"})
+hi(0, "TelescopeSelectionCaret", {fg = red_a})
+
 
 
 -- Terminal
-vim.g.terminal_color_0  = base7
+vim.g.terminal_color_0  = base0
 vim.g.terminal_color_1  = red_a
 vim.g.terminal_color_2  = green_a
 vim.g.terminal_color_3  = yellow_a
 vim.g.terminal_color_4  = blue_a
 vim.g.terminal_color_5  = magenta_a
 vim.g.terminal_color_6  = cyan_a
-vim.g.terminal_color_7  = base2
-vim.g.terminal_color_8  = base5
+vim.g.terminal_color_7  = base5
+vim.g.terminal_color_8  = base2
 vim.g.terminal_color_9  = red_b
 vim.g.terminal_color_10 = green_b
 vim.g.terminal_color_11 = yellow_b
 vim.g.terminal_color_12 = blue_b
 vim.g.terminal_color_13 = magenta_b
 vim.g.terminal_color_14 = cyan_b
-vim.g.terminal_color_15 = base0
+vim.g.terminal_color_15 = base7
+

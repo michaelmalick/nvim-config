@@ -1,4 +1,4 @@
--- solarized-light.nvim -- a light neovim color theme
+-- atmos-dark.nvim -- a dark neovim color theme
 --
 -- Version: 0.1
 -- Designer: Michael Malick
@@ -8,53 +8,73 @@
 
 vim.cmd("hi clear")
 if vim.fn.exists("syntax_on") then vim.cmd("syntax reset") end
-vim.g.colors_name = "solarized-light"
+vim.g.colors_name = "atmos-dark"
 local hi = vim.api.nvim_set_hl
 
-local base0     = "#FDF6E3"
-local base1     = "#F1EDD9"
-local base2     = "#E5E4D0"
-local base3     = "#B8C2AF"
-local base4     = "#8D9F91"
-local base5     = "#768A80"
-local base6     = "#475C5B"
-local base7     = "#374A4C"
-local magenta_a = "#6C71C4"
-local red_a     = "#DC322F"
-local yellow_a  = "#B58900"
-local green_a   = "#859900"
-local cyan_a    = "#2AA198"
-local blue_a    = "#268BD2"
-local magenta_m = "#8185CC"
-local red_m     = "#EF514F"
-local yellow_m  = "#C29A49"
-local green_m   = "#96A84A"
-local cyan_m    = "#64ADA6"
-local blue_m    = "#5A9BDA"
-local magenta_b = "#6D76FF"
-local red_b     = "#FF2F2F"
-local yellow_b  = "#D18F24"
-local green_b   = "#89A824"
-local cyan_b    = "#26BCAA"
-local blue_b    = "#3D9AFF"
-local magenta_h = "#C8CBFA"
-local red_h     = "#FFBCBB"
-local yellow_h  = "#F0D3A5"
-local green_h   = "#D0DCA8"
-local cyan_h    = "#9FE4DD"
-local blue_h    = "#B6D5FF"
-local magenta_l = "#E7E8FF"
-local red_l     = "#FFE3E3"
-local yellow_l  = "#FFEBD0"
-local green_l   = "#E9F2CC"
-local cyan_l    = "#D1F5F1"
-local blue_l    = "#E1EDFF"
-local magenta_d = "#CFD2FF"
-local red_d     = "#FFC6C5"
-local yellow_d  = "#F6D8AB"
-local green_d   = "#D6E2AD"
-local cyan_d    = "#A5EAE2"
-local blue_d    = "#C1DBFF"
+local base0
+local base1
+local base2
+local base3
+local base4
+local base5
+local base6
+local base7
+local red_a
+local yellow_a
+local green_a
+local cyan_a
+local blue_a
+local magenta_a
+local red_b
+local yellow_b
+local green_b
+local cyan_b
+local blue_b
+local magenta_b
+
+if vim.o.background == 'dark' then
+    base0     = "#272D34"
+    base1     = "#2E333A"
+    base2     = "#4B5057"
+    base3     = "#7B8087"
+    base4     = "#8F959C"
+    base5     = "#C4CAD1"
+    base6     = "#E7EDF5"
+    base7     = "#EEF4FC"
+    red_a     = "#E48A92"
+    yellow_a  = "#DCC5B0"
+    green_a   = "#B3CDB5"
+    cyan_a    = "#ABCDCC"
+    blue_a    = "#B7C8DD"
+    magenta_a = "#AD9DBC"
+    red_b     = "#FF647A"
+    yellow_b  = "#F8B760"
+    green_b   = "#75D67E"
+    cyan_b    = "#61D2D0"
+    blue_b    = "#7DC7FF"
+    magenta_b = "#C382F2"
+else
+    base0     = "#EEF4FC"
+    base1     = "#E7EDF5"
+    base2     = "#C4CAD1"
+    base3     = "#8F959C"
+    base4     = "#7B8087"
+    base5     = "#4B5057"
+    base6     = "#2E333A"
+    base7     = "#272D34"
+    red_a     = "#A5243A"
+    yellow_a  = "#9A723D"
+    green_a   = "#4C8351"
+    cyan_a    = "#428180"
+    blue_a    = "#527BA1"
+    magenta_a = "#70448F"
+    red_b     = "#CD2343"
+    yellow_b  = "#BF8200"
+    green_b   = "#359F42"
+    cyan_b    = "#009C9A"
+    blue_b    = "#3492D2"
+    magenta_b = "#9248C0"
+end
 
 hi(0, "Normal", {fg = base7, bg = base0})
 
@@ -64,8 +84,8 @@ hi(0, "Constant", {fg = cyan_a})
 hi(0, "String", {fg = base5, italic = true})
 hi(0, "Identifier", {fg = blue_a})
 hi(0, "Function", {fg = blue_a})
-hi(0, "Operator", {fg = green_a})
-hi(0, "Statement", {fg = magenta_a})
+hi(0, "Operator", {fg = base5})
+hi(0, "Statement", {fg = base5})
 hi(0, "PreProc", {fg = yellow_a})
 hi(0, "Type", {fg = magenta_a})
 hi(0, "Special", {fg = yellow_a})
@@ -85,7 +105,7 @@ hi(0, "lCursor", {link = "Cursor"})
 hi(0, "CursorIM", {link = "Cursor"})
 hi(0, "CursorColumn", {link = "CursorLine"})
 hi(0, "CursorLine", {bg = base1})
-hi(0, "Directory", {fg = blue_a})
+hi(0, "Directory", {fg = magenta_a})
 hi(0, "DiffAdd", {fg = green_a, bg = base1})
 hi(0, "DiffChange", {fg = blue_a, bg = base1})
 hi(0, "DiffDelete", {fg = red_a, bg = base1})
@@ -99,7 +119,7 @@ hi(0, "VertSplit", {link = "WinSeparator"})
 hi(0, "Folded", {link = "Normal"})
 hi(0, "FoldColumn", {fg = base3})
 hi(0, "SignColumn", {link = "FoldColumn"})
-hi(0, "IncSearch", {fg = red_b, bg = red_d})
+hi(0, "IncSearch", {fg = base0, bg = red_a})
 hi(0, "Substitute", {link = "IncSearch"})
 hi(0, "LineNr", {fg = base3})
 hi(0, "LineNrAbove", {link = "LineNr"})
@@ -122,7 +142,7 @@ hi(0, "PMenuSbar", {fg = base4, bg = base2})
 hi(0, "PMenuThumb", {fg = base4, bg = base2})
 hi(0, "Question", {fg = cyan_a})
 hi(0, "QuickFixLine", {link = "Special"})
-hi(0, "Search", {fg = green_b, bg = green_d})
+hi(0, "Search", {fg = base0, bg = base4})
 hi(0, "SpecialKey", {fg = base7})
 hi(0, "SpellBad", {sp = red_a, undercurl = true})
 hi(0, "SpellCap", {sp = red_a, undercurl = true})
@@ -136,8 +156,8 @@ hi(0, "TabLine", {link = "StatusLine"})
 hi(0, "TabLineFill", {link = "TabLine"})
 hi(0, "TabLineSel", {fg = base6, bg = base0, bold = true})
 hi(0, "Title", {fg = blue_a})
-hi(0, "Visual", {bg = blue_h})
-hi(0, "VisualNOS", {bg = blue_h})
+hi(0, "Visual", {bg = base2})
+hi(0, "VisualNOS", {bg = base2})
 hi(0, "WarningMsg", {fg = yellow_a})
 hi(0, "Whitespace", {link = "Comment"})
 hi(0, "WildMenu", {link = "PMenuSel"})
@@ -325,21 +345,13 @@ hi(0, "gvAuthor", {link = "gitIdentity"})
 hi(0, "gvDate", {link = "gitDate"})
 hi(0, "gvSha", {link = "gitHash"})
 hi(0, "gvTag", {link = "Tag"})
-hi(0, "bufExplorerCurBuf", {fg = magenta_a})
-hi(0, "bufExplorerAltBuf", {fg = cyan_a})
-hi(0, "bufExplorerHidBuf", {link = "Normal"})
-hi(0, "bufExplorerActBuf", {fg = base5})
 hi(0, "Sneak", {link = "IncSearch"})
 hi(0, "SneakScope", {fg = base1, bg = base7, bold = true})
-hi(0, "DirbufHash", {link = "Comment"})
-hi(0, "DirbufDirectory", {link = "Directory"})
 hi(0, "LocalHighlight", {bg=base2})
 hi(0, "TelescopeSelection", {fg = cyan_a, bg = base1})
 hi(0, "TelescopePreviewLine", {link = "CursorLine"})
 hi(0, "TelescopeMatching", {link = "IncSearch"})
 hi(0, "TelescopeSelectionCaret", {fg = red_a})
-
-
 
 -- Terminal
 vim.g.terminal_color_0  = base0
@@ -358,3 +370,4 @@ vim.g.terminal_color_12 = blue_b
 vim.g.terminal_color_13 = magenta_b
 vim.g.terminal_color_14 = cyan_b
 vim.g.terminal_color_15 = base7
+
