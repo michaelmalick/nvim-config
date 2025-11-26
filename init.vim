@@ -2,13 +2,13 @@
 
 
 "" nvim base settings --------------------------------------
-set ignorecase                 " Case insensitive search
-set smartcase                  " Case sensitive when uppercase present
-set wildignorecase             " Ignore case in mini-buffer completion
+" set ignorecase                 " Case insensitive search
+" set smartcase                  " Case sensitive when uppercase present
+" set wildignorecase             " Ignore case in mini-buffer completion
 set noshowmode                 " Don't show mode in cmd line
 set linebreak                  " Lines break at spaces
 set foldlevel=10               " Open 10 fold levels on buffer entry
-set path+=**                   " Search sub-directories too
+" set path+=**                   " Search sub-directories too
 set noerrorbells               " No beeping!
 set spellcapcheck=''           " Turn off cap checking of first word of sentence
 set fillchars=fold:\ ,vert:│   " Chars used to fill space
@@ -20,7 +20,7 @@ set expandtab                  " Tabs as spaces
 set virtualedit=block          " Easier visual blocks
 set fileformats=unix,dos,mac   " Use unix as standard file type
 set noswapfile                 " Don't create swapfiles
-set cursorline                 " Highlight current line
+" set cursorline                 " Highlight current line
 set clipboard+=unnamedplus     " Use system clipboard too
 set undofile                   " Enable persistent undo
 set textwidth=80               " Wrap text at column 80
@@ -300,7 +300,7 @@ command! StripWhitespace call <SID>strip_whitespace()
 
 
 "" :Scratch
-function! Scratch(...)
+function! s:scratch(...) abort
     enew
     file SCRATCH
     setlocal buftype=nofile
@@ -311,7 +311,8 @@ function! Scratch(...)
     endif
 endfunction
 
-command! -nargs=? Scratch call Scratch(<f-args>)
+command! -nargs=? Scratch call <SID>scratch(<f-args>)
+
 
 "" :Pandoc
 function! s:pandoc_run(ext) abort
@@ -351,7 +352,7 @@ endfunction
 
 
 "" markdown ------------------------------------------------
-let g:markdown_fenced_languages = ['r', 'bash=sh', 'vim']
+let g:markdown_fenced_languages = ['r', 'bash=sh', 'vim', 'lua']
 
 augroup mjm_markdown
     autocmd!
@@ -371,6 +372,17 @@ augroup mjm_rstats
     au BufNewFile,BufRead *.stan set ft=cpp
     au FileType r set commentstring=#\ %s
     au FileType r exe 'lua vim.diagnostic.enable(false)'
+augroup END
+
+
+
+"" python --------------------------------------------------
+augroup mjm_python
+    autocmd!
+    au FileType python nnoremap <silent> <leader>mf :!ruff format %<CR>
+    au FileType python nnoremap <silent> <leader>mF :!ruff format .<CR>
+    au FileType python nnoremap <silent> <leader>mk :!ruff check --fix %<CR>
+    au FileType python nnoremap <silent> <leader>mK :!ruff check --fix .<CR>
 augroup END
 
 
@@ -397,13 +409,10 @@ if !isdirectory(stdpath('config') .. '/pack')
 endif
 
 :lua require('lsp')
-:lua require('pandoc')
-:lua require('floaterminal')
-nnoremap <silent>got :<C-U>Floaterminal<CR>
-
 :packadd! vim-commentary
 :packadd! vim-eunuch
 :packadd! vim-unimpaired
+:packadd! nvim-web-devicons
 
 
 "" flutter
@@ -431,7 +440,6 @@ nnoremap <silent> <leader>gl :GV --all<CR>
 :packadd! oil.nvim
 :lua require('oil').setup()
 nnoremap <silent> - <cmd>Oil<CR>
-
 augroup mjm_oil
     autocmd!
     au Filetype oil nnoremap <silent><buffer> gq :lua require'oil'.close()<CR>
@@ -456,79 +464,13 @@ endif
 let g:easy_align_delimiters['<'] = { 'pattern': '<-' }
 
 
-"" undo-tree
-:packadd! undotree
-let g:undotree_WindowLayout = 2
-let g:undotree_SetFocusWhenToggle = 1
-
-
-"" bufexplorer
-:packadd! bufexplorer
-" nnoremap <leader>, :BufExplorer<CR>
-let g:bufExplorerDefaultHelp = 0
-let g:bufExplorerShowRelativePath = 1
-let g:bufExplorerSplitBelow = 1
-let g:bufExplorerDisableDefaultKeyMapping = 1
-let g:bufExplorerShowTabBuffer = 1  "" THIS IS AWESOME!!
-
-function! ToggleBufExplorerTab() abort
-    "" Toggle if only tab buffers should be shown
-    if g:bufExplorerShowTabBuffer == 1
-        let g:bufExplorerShowTabBuffer = 0
-    else
-        let g:bufExplorerShowTabBuffer = 1
-    endif
-    normal q
-    :BufExplorer
-endfunc
-
-augroup mjm_bufexplorer
-    autocmd!
-    au FileType bufexplorer nmap <silent><buffer> . :call ToggleBufExplorerTab()<CR>
-    au FileType bufexplorer nmap <silent><buffer> gq :normal q<CR>
-augroup END
-
-
 "" snippy
 :packadd! nvim-snippy
 imap <expr> <Tab> snippy#can_expand_or_advance() ? '<Plug>(snippy-expand-or-advance)' : '<Tab>'
 imap <expr> <S-Tab> snippy#can_jump(-1) ? '<Plug>(snippy-previous)' : '<S-Tab>'
 smap <expr> <Tab> snippy#can_jump(1) ? '<Plug>(snippy-next)' : '<Tab>'
 smap <expr> <S-Tab> snippy#can_jump(-1) ? '<Plug>(snippy-previous)' : '<S-Tab>'
-
 :lua require('snippy').setup({hl_group = 'diffChanged', enable_auto = false})
-
-
-"" nss
-:lua require('nss')
-
-augroup mjm_nss
-    autocmd!
-    au FileType r,rmd,rnoweb,julia,rmd.markdown,python call <SID>nss_map_leader()
-augroup END
-function! s:nss_map_leader() abort
-    nnoremap <silent> <leader>mo :<C-U>NSSopen<CR>
-    nnoremap <silent> <leader>mq :<C-U>NSSclose<CR>
-    nnoremap <leader>mi :NSSinspect 
-    xnoremap <leader>mi :NSSinspect 
-    nnoremap <silent> <leader>ms :<C-U>NSSsource<CR>
-    nnoremap <silent> <leader>mc :<C-U>NSSsend <CR>
-    nnoremap <silent> <leader>mx :<C-U>NSSinterrupt<CR>
-    if &ft == 'r'
-        nnoremap <silent> <leader>ml :<C-U>NSSsource load.R<CR>
-    endif
-endfunc
-if has('unix') || has('macunix')
-    :lua vim.g.nss_options = {python = {open_cmd = 'python3', send_type='bracketed'}}
-endif
-
-augroup mjm_python
-    autocmd!
-    au FileType python nnoremap <silent> <leader>mf :!ruff format %<CR>
-    au FileType python nnoremap <silent> <leader>mF :!ruff format .<CR>
-    au FileType python nnoremap <silent> <leader>mk :!ruff check --fix %<CR>
-    au FileType python nnoremap <silent> <leader>mK :!ruff check --fix .<CR>
-augroup END
 
 
 " diffview
@@ -538,10 +480,6 @@ nnoremap <silent> <leader>dd <cmd>DiffviewOpen<CR>
 nnoremap <silent> <leader>dc <cmd>DiffviewClose<CR>
 nnoremap <silent> <leader>df <cmd>DiffviewFileHistory<CR>
 nnoremap <silent> <leader>dr <cmd>DiffviewRefresh<CR>
-
-
-"" nvim-web-devicons
-:packadd! nvim-web-devicons
 
 
 "" gitsigns.nvim
@@ -577,29 +515,6 @@ augroup linters
 augroup END
 
 
-"" blink.cmp
-:packadd! blink.cmp
-lua << EOF
-if vim.fn.has('win32') == 1 or vim.fn.has('win64') == 1 then
-    cols={{"label", "label_description", gap = 1 }, {"kind"}}
-else
-    cols={{"kind_icon"}, {"label", "label_description", gap = 1 }, {"kind"}}
-end
-require('blink.cmp').setup({
-    fuzzy={implementation="lua"},
-    completion={
-        menu={
-            border="none",
-            draw={
-                columns=cols,
-            },
-        },
-        documentation = {auto_show = true, auto_show_delay_ms = 500},
-    },
-})
-EOF
-
-
 "" lualine
 :packadd! lualine.nvim
 lua << EOF
@@ -610,6 +525,12 @@ require('lualine').setup({
     },
 })
 EOF
+
+
+"" toggleterm
+:packadd! toggleterm.nvim
+:lua require('toggleterm').setup{}
+nnoremap <silent>got :<C-U>ToggleTerm<CR>
 
 
 " telescope
@@ -639,7 +560,6 @@ EOF
 
 nnoremap <leader><leader> <cmd>Telescope find_files theme=dropdown<CR>
 nnoremap <leader>, <cmd>Telescope buffers theme=dropdown<CR>
-
 nnoremap <silent> gof <cmd>Telescope find_files theme=dropdown<CR>
 nnoremap <silent> goo <cmd>Telescope oldfiles theme=dropdown<CR>
 nnoremap <silent> gol <cmd>Telescope current_buffer_fuzzy_find theme=dropdown<CR>
@@ -656,3 +576,81 @@ nnoremap <silent> go. <cmd>Telescope resume<CR>
 
 
 "" testing -------------------------------------------------
+:packadd! rebel.nvim
+lua << EOF
+vim.keymap.set({'n', 'x'}, 'gl', '<Plug>(RebelSend)')
+vim.keymap.set('n', 'gll', '<Plug>(RebelSendLine)')
+
+vim.keymap.set('n', '<leader>rr', ':<C-U>Rebel restart<CR>', {silent = true})
+vim.keymap.set('n', '<leader>rs', ':1,$Rebel source<CR>', {silent = true})
+vim.keymap.set('n', '<leader>rc', function() require('rebel.core').send('\12') end) -- ^L
+vim.keymap.set('n', '<leader>rx', function() require('rebel.core').send('\3') end)  -- ^C
+vim.keymap.set({'n', 'x'}, '<leader>ri', ':Rebel inspect ')
+EOF
+
+lua << EOF
+require('rebel').setup {
+    repl = {
+        -- default = {
+        --     open_fn = function()
+        --         vim.cmd('TermNew')
+        --         return vim.fn.bufnr('%')
+        --     end,
+        -- },
+        r = {
+            command = 'R --no-save',
+            send_fn = function(lines, chan)
+                local core = require('rebel.core')
+                core.send_source(lines, chan, [[source('%s')]])
+            end,
+            source_fn = function(lines, chan)
+                local core = require('rebel.core')
+                core.send_source(lines, chan, [[source('%s')]])
+            end,
+            syntax = 'rebel_r',
+        },
+        python = {
+            command = 'python3',
+            format_fn = function(lines)
+                local core = require('rebel.core')
+                lines = core.remove_common_whitespace(lines)
+                lines = core.bracketed_paste(lines)
+                lines = core.add_trailing_blank_line(lines)
+                return lines
+            end,
+            source_fn = function(lines, chan)
+                local core = require('rebel.core')
+                core.send_source(lines, chan, [[exec(open('%s').read())]])
+            end,
+        },
+    --    python = {
+    --        command = 'PYTHON_BASIC_REPL=1 python3.14',
+    --        -- command = 'python3',
+    --        -- send_fn = rebel.send_lines,
+    --         send_fn = function(lines, chan)
+    --            local core = require('rebel.core')
+    --             path = core.write_tmpfile(lines)
+    --             if #lines == 1 then
+    --                 core.send_lines(lines, chan)
+    --             else
+    --                 core.send_lines({'exec(open("' .. path .. '").read())'}, chan)
+    --             end
+    --         end,
+    --        format_fn = function(lines)
+    --            local core = require('rebel.core')
+    --            lines = core.remove_common_whitespace(lines)
+    --            -- lines = core.bracketed_paste(lines)
+    --            -- lines = core.add_trailing_blank_line(lines)
+    --            return lines
+    --        end,
+    --        open_fn = function()
+    --            vim.cmd('TermNew')
+    --            local bufnr = vim.fn.bufnr('%')
+    --            vim.cmd('wincmd p')
+    --            return bufnr
+    --        end,
+    --    },
+    },
+}
+
+EOF
