@@ -313,6 +313,23 @@ endfunction
 
 command! -nargs=? Scratch call Scratch(<f-args>)
 
+"" :Pandoc
+function! s:pandoc_run(ext) abort
+    if executable('pandoc')
+        let path1 = fnameescape(expand('%:p:r'))
+        let path2 = fnameescape(expand('%:p'))
+        let cmd = printf('!pandoc --citeproc -o %s.%s %s', path1, a:ext, path2)
+        execute cmd
+    else
+        echohl WarningMsg
+        echo 'Error: pandoc not found'
+        echohl None
+    endif
+endfunction
+
+" Create the user command
+command! -nargs=1 Pandoc call <SID>pandoc_run(<f-args>)
+
 
 
 "" cmdwin + help -------------------------------------------
