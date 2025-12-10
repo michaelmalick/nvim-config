@@ -104,12 +104,12 @@ else
     green_h   = "#D0DCA8"
     cyan_h    = "#9FE4DD"
     blue_h    = "#B6D5FF"
-    magenta_d = "#CFD2FF"
-    red_d     = "#FFC6C5"
-    yellow_d  = "#F6D8AB"
-    green_d   = "#D6E2AD"
-    cyan_d    = "#A5EAE2"
-    blue_d    = "#C1DBFF"
+    magenta_d = "#D7D9FF"
+    red_d     = "#FFCFCF"
+    yellow_d  = "#FCDEB0"
+    green_d   = "#DBE8B3"
+    cyan_d    = "#AAEFE8"
+    blue_d    = "#CCE1FF"
 end
 
 hi(0, "Normal", {fg = base7, bg = base0})
