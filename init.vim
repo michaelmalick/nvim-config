@@ -2,13 +2,12 @@
 
 
 "" nvim base settings --------------------------------------
-" set ignorecase                 " Case insensitive search
-" set smartcase                  " Case sensitive when uppercase present
-" set wildignorecase             " Ignore case in mini-buffer completion
+set ignorecase                 " Case insensitive search
+set smartcase                  " Case sensitive when uppercase present
+set wildignorecase             " Ignore case in mini-buffer completion
 set noshowmode                 " Don't show mode in cmd line
 set linebreak                  " Lines break at spaces
 set foldlevel=10               " Open 10 fold levels on buffer entry
-" set path+=**                   " Search sub-directories too
 set noerrorbells               " No beeping!
 set spellcapcheck=''           " Turn off cap checking of first word of sentence
 set fillchars=fold:\ ,vert:│   " Chars used to fill space
@@ -20,7 +19,6 @@ set expandtab                  " Tabs as spaces
 set virtualedit=block          " Easier visual blocks
 set fileformats=unix,dos,mac   " Use unix as standard file type
 set noswapfile                 " Don't create swapfiles
-" set cursorline                 " Highlight current line
 set clipboard+=unnamedplus     " Use system clipboard too
 set undofile                   " Enable persistent undo
 set textwidth=80               " Wrap text at column 80
@@ -576,8 +574,6 @@ nnoremap <silent> go. <cmd>Telescope resume<CR>
 
 
 "" testing -------------------------------------------------
-:packadd! vim-floaterm
-
 :packadd! rebel.nvim
 lua << EOF
 vim.keymap.set({'n', 'x'}, 'gl', '<Plug>(RebelSend)')
@@ -587,8 +583,6 @@ vim.keymap.set('n', '<leader>ro', ':Rebel open ')
 vim.keymap.set('n', '<leader>rq', ':<C-U>Rebel close<CR>', {silent = true})
 vim.keymap.set('n', '<leader>rr', ':<C-U>Rebel restart<CR>', {silent = true})
 vim.keymap.set('n', '<leader>rs', ':1,$Rebel source<CR>', {silent = true})
-vim.keymap.set('n', '<leader>rc', function() require('rebel.core').send(0, '\12') end) -- ^L
-vim.keymap.set('n', '<leader>rx', function() require('rebel.core').send(0, '\3') end)  -- ^C
 vim.keymap.set({'n', 'x'}, '<leader>ri', ':Rebel inspect ')
 EOF
 
