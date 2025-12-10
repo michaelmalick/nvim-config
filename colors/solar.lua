@@ -25,12 +25,6 @@ local yellow_a
 local green_a
 local cyan_a
 local blue_a
-local magenta_m
-local red_m
-local yellow_m
-local green_m
-local cyan_m
-local blue_m
 local magenta_b
 local red_b
 local yellow_b
@@ -43,12 +37,6 @@ local yellow_h
 local green_h
 local cyan_h
 local blue_h
-local magenta_l
-local red_l
-local yellow_l
-local green_l
-local cyan_l
-local blue_l
 local magenta_d
 local red_d
 local yellow_d
@@ -71,12 +59,6 @@ if vim.o.background == 'dark' then
     green_a   = "#9FB43F"
     cyan_a    = "#53BCB3"
     blue_a    = "#53A5EC"
-    magenta_m = "#7174BD"
-    red_m     = "#DA3E3B"
-    yellow_m  = "#B08831"
-    green_m   = "#859733"
-    cyan_m    = "#509C95"
-    blue_m    = "#428AC8"
     magenta_b = "#9A9EFF"
     red_b     = "#FF7271"
     yellow_b  = "#EDB134"
@@ -89,12 +71,6 @@ if vim.o.background == 'dark' then
     green_h   = "#4B5800"
     cyan_h    = "#1C5C57"
     blue_h    = "#005180"
-    magenta_l = "#363755"
-    red_l     = "#443434"
-    yellow_l  = "#4B4030"
-    green_l   = "#404335"
-    cyan_l    = "#284845"
-    blue_l    = "#303F53"
     magenta_d = "#00117F"
     red_d     = "#510000"
     yellow_d  = "#3A2800"
@@ -116,12 +92,6 @@ else
     green_a   = "#859900"
     cyan_a    = "#2AA198"
     blue_a    = "#268BD2"
-    magenta_m = "#8185CC"
-    red_m     = "#EF514F"
-    yellow_m  = "#C29A49"
-    green_m   = "#96A84A"
-    cyan_m    = "#64ADA6"
-    blue_m    = "#5A9BDA"
     magenta_b = "#6D76FF"
     red_b     = "#FF2F2F"
     yellow_b  = "#D18F24"
@@ -134,12 +104,6 @@ else
     green_h   = "#D0DCA8"
     cyan_h    = "#9FE4DD"
     blue_h    = "#B6D5FF"
-    magenta_l = "#E7E8FF"
-    red_l     = "#FFE3E3"
-    yellow_l  = "#FFEBD0"
-    green_l   = "#E9F2CC"
-    cyan_l    = "#D1F5F1"
-    blue_l    = "#E1EDFF"
     magenta_d = "#CFD2FF"
     red_d     = "#FFC6C5"
     yellow_d  = "#F6D8AB"
