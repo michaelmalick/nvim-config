@@ -576,6 +576,8 @@ nnoremap <silent> go. <cmd>Telescope resume<CR>
 
 
 "" testing -------------------------------------------------
+:packadd! vim-floaterm
+
 :packadd! rebel.nvim
 lua << EOF
 vim.keymap.set({'n', 'x'}, 'gl', '<Plug>(RebelSend)')
@@ -591,67 +593,28 @@ vim.keymap.set({'n', 'x'}, '<leader>ri', ':Rebel inspect ')
 EOF
 
 lua << EOF
-require('rebel').setup {
+rebel = require('rebel')
+rebel.setup {
+    -- rename_repl_buffers = false,
     repl = {
+        -- python = {
+        --     open_fn = function()
+        --         vim.cmd('TermNew')
+        --         return vim.fn.bufnr('%')
+        --     end,
+        -- }
         -- default = {
         --     open_fn = function()
         --         vim.cmd('TermNew')
         --         return vim.fn.bufnr('%')
         --     end,
         -- },
-        r = {
-            command = 'R --no-save',
-            send_fn = function(lines, chan)
-                local core = require('rebel.core')
-                core.send_source(lines, chan, [[source('%s')]])
-            end,
-            source_fn = function(lines, chan)
-                local core = require('rebel.core')
-                core.send_source(lines, chan, [[source('%s')]])
-            end,
-            syntax = 'rebel_r',
-        },
-        python = {
-            command = 'python3',
-            format_fn = function(lines)
-                local core = require('rebel.core')
-                lines = core.remove_common_whitespace(lines)
-                lines = core.bracketed_paste(lines)
-                lines = core.add_trailing_blank_line(lines)
-                return lines
-            end,
-            source_fn = function(lines, chan)
-                local core = require('rebel.core')
-                core.send_source(lines, chan, [[exec(open('%s').read())]])
-            end,
-        },
-    --    python = {
-    --        command = 'PYTHON_BASIC_REPL=1 python3.14',
-    --        -- command = 'python3',
-    --        -- send_fn = rebel.send_lines,
-    --         send_fn = function(lines, chan)
-    --            local core = require('rebel.core')
-    --             path = core.write_tmpfile(lines)
-    --             if #lines == 1 then
-    --                 core.send_lines(lines, chan)
-    --             else
-    --                 core.send_lines({'exec(open("' .. path .. '").read())'}, chan)
-    --             end
-    --         end,
-    --        format_fn = function(lines)
-    --            local core = require('rebel.core')
-    --            lines = core.remove_common_whitespace(lines)
-    --            -- lines = core.bracketed_paste(lines)
-    --            -- lines = core.add_trailing_blank_line(lines)
-    --            return lines
-    --        end,
-    --        open_fn = function()
-    --            vim.cmd('TermNew')
-    --            local bufnr = vim.fn.bufnr('%')
-    --            vim.cmd('wincmd p')
-    --            return bufnr
-    --        end,
-    --    },
+        -- default = {
+        --     open_fn = function()
+        --         vim.cmd('FloatermNew')
+        --         return vim.fn.bufnr('%')
+        --     end,
+        -- },
     },
 }
 

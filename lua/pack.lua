@@ -24,6 +24,7 @@ local repos = {
     'stevearc/oil.nvim',
     'nvim-telescope/telescope.nvim',
     'sindrets/diffview.nvim',
+    'voldikss/vim-floaterm',
     -- 'Vigemus/iron.nvim',
     -- 'saghen/blink.cmp',
     -- 'ibhagwan/fzf-lua',
