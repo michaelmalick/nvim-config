@@ -31,7 +31,11 @@ exe 'set spellfile='.stdpath('config')."/spell/en.utf-8.add"
 "" colors --------------------------------------------------
 "" nvim autoloads colorschemes, don't need to use :packadd
 set termguicolors
-set background=dark
+if $ITERM_PROFILE == 'solarized-light'
+  set background=light
+else
+  set background=dark
+endif
 silent! colorscheme solar
 
 augroup highlight_yank
