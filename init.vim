@@ -389,6 +389,14 @@ augroup END
 
 
 
+"" lua -----------------------------------------------------
+augroup mjm_lua
+    autocmd!
+    au FileType lua setlocal shiftwidth=2 tabstop=2 softtabstop=2
+augroup END
+
+
+
 "" diagnostics ---------------------------------------------
 command! DiagOff exe 'lua vim.diagnostic.enable(false)'
 command! DiagOn  exe 'lua vim.diagnostic.enable(true)'
