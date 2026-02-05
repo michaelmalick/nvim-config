@@ -376,6 +376,11 @@ augroup mjm_rstats
     au FileType r exe 'lua vim.diagnostic.enable(false)'
     au FileType r nnoremap <silent> <leader>mf :!air format %<CR>
     au FileType r nnoremap <silent> <leader>mF :!air format .<CR>
+    au FileType r setlocal indentexpr=
+    au FileType r setlocal cindent
+    au FileType r setlocal cinkeys-=0#
+    au FileType r setlocal cinoptions+=(s
+    " au FileType r setlocal smartindent indentexpr= 
 augroup END
 
 
