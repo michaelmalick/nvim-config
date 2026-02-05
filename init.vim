@@ -598,12 +598,12 @@ lua << EOF
 vim.keymap.set({'n', 'x'}, 'gl', '<Plug>(RebelSend)')
 vim.keymap.set('n', 'gll', '<Plug>(RebelSendLine)')
 
-vim.keymap.set('n', '<leader>ro', ':Rebel open ')
-vim.keymap.set('n', '<leader>rq', ':<C-U>Rebel close<CR>', {silent = true})
-vim.keymap.set('n', '<leader>rr', ':<C-U>Rebel restart<CR>', {silent = true})
-vim.keymap.set('n', '<leader>rs', ':1,$Rebel source<CR>', {silent = true})
-vim.keymap.set('n', '<leader>rl', ':<C-U>Rebel send source("load.R")<CR>', {silent = true})
-vim.keymap.set({'n', 'x'}, '<leader>ri', ':Rebel inspect ')
+vim.keymap.set('n', '<leader>mo', ':Rebel open ')
+vim.keymap.set('n', '<leader>mq', ':<C-U>Rebel close<CR>', {silent = true})
+vim.keymap.set('n', '<leader>mr', ':<C-U>Rebel restart<CR>', {silent = true})
+vim.keymap.set('n', '<leader>ms', ':1,$Rebel source<CR>', {silent = true})
+vim.keymap.set('n', '<leader>ml', ':<C-U>Rebel send source("load.R")<CR>', {silent = true})
+vim.keymap.set({'n', 'x'}, '<leader>mi', ':Rebel inspect ')
 EOF
 
 lua << EOF
