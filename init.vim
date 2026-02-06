@@ -633,3 +633,25 @@ rebel.setup {
 }
 
 EOF
+
+
+
+"" blink.cmp
+:packadd! blink.cmp
+lua << EOF
+require('blink.cmp').setup({
+    keymap = {preset = "super-tab"},
+    fuzzy={implementation="lua"},
+    completion={
+        menu={
+            border="none",
+            draw={
+                columns=cols,
+            },
+        },
+        documentation = {auto_show = true, auto_show_delay_ms = 500},
+    },
+})
+EOF
+
+

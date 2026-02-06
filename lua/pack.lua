@@ -26,7 +26,7 @@ local repos = {
     'sindrets/diffview.nvim',
     'voldikss/vim-floaterm',
     -- 'Vigemus/iron.nvim',
-    -- 'saghen/blink.cmp',
+    'saghen/blink.cmp',
     -- 'ibhagwan/fzf-lua',
     -- 'jlanzarotta/bufexplorer',
     -- 'mbbill/undotree',
