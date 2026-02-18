@@ -24,7 +24,6 @@ set undofile                   " Enable persistent undo
 set textwidth=80               " Wrap text at column 80
 set list lcs=trail:·,tab:»·    " Show invisibles
 set winborder=single           " Floating window borders
-exe 'set spellfile='.stdpath('config')."/spell/en.utf-8.add"
 
 
 
@@ -128,11 +127,9 @@ nnoremap <silent> gh :nohlsearch<CR>
 
 "" notes and files
 nnoremap <silent> <leader>1 :edit ~/.notes.md<CR>
-nnoremap <silent> <leader>9 :edit ~/Documents/research/<CR>
 
 "" vimrc
-let g:myvimrc = stdpath('config')."/init.vim"
-nnoremap <silent> <leader>0 :execute 'edit' g:myvimrc<CR>
+nnoremap <silent> <leader>0 :execute 'edit' $MYVIMRC<CR>
 
 "" fold text object
 xnoremap <silent> az :<C-U> normal! [zV]z<CR>
@@ -312,7 +309,6 @@ function! s:scratch(...) abort
         execute 'setlocal filetype=' . a:1
     endif
 endfunction
-
 command! -nargs=? Scratch call <SID>scratch(<f-args>)
 
 
@@ -329,8 +325,6 @@ function! s:pandoc_run(ext) abort
         echohl None
     endif
 endfunction
-
-" Create the user command
 command! -nargs=1 Pandoc call <SID>pandoc_run(<f-args>)
 
 
@@ -409,6 +403,50 @@ command! DiagOff exe 'lua vim.diagnostic.enable(false)'
 command! DiagOn  exe 'lua vim.diagnostic.enable(true)'
 nnoremap <silent> [d <cmd>lua vim.diagnostic.goto_prev()<CR>
 nnoremap <silent> ]d <cmd>lua vim.diagnostic.goto_next()<CR>
+
+
+
+"" rebel ---------------------------------------------------
+:packadd! rebel.nvim
+lua << EOF
+vim.keymap.set({'n', 'x'}, 'gl', '<Plug>(RebelSend)')
+vim.keymap.set('n', 'gll', '<Plug>(RebelSendLine)')
+
+vim.keymap.set('n', '<leader>mo', ':Rebel open ')
+vim.keymap.set('n', '<leader>mq', ':<C-U>Rebel close<CR>', {silent = true})
+vim.keymap.set('n', '<leader>mr', ':<C-U>Rebel restart<CR>', {silent = true})
+vim.keymap.set('n', '<leader>ms', ':1,$Rebel source<CR>', {silent = true})
+vim.keymap.set('n', '<leader>ml', ':<C-U>Rebel send source("load.R")<CR>', {silent = true})
+vim.keymap.set({'n', 'x'}, '<leader>mi', ':Rebel inspect ')
+EOF
+
+lua << EOF
+rebel = require('rebel')
+rebel.setup {
+    -- rename_repl_buffers = false,
+    repl = {
+        -- python = {
+        --     open_fn = function()
+        --         vim.cmd('TermNew')
+        --         return vim.fn.bufnr('%')
+        --     end,
+        -- }
+        -- default = {
+        --     open_fn = function()
+        --         vim.cmd('TermNew')
+        --         return vim.fn.bufnr('%')
+        --     end,
+        -- },
+        -- default = {
+        --     open_fn = function()
+        --         vim.cmd('FloatermNew')
+        --         return vim.fn.bufnr('%')
+        --     end,
+        -- },
+    },
+}
+
+EOF
 
 
 
@@ -536,6 +574,24 @@ EOF
 nnoremap <silent>got :<C-U>ToggleTerm<CR>
 
 
+"" blink.cmp
+:packadd! blink.cmp
+lua << EOF
+require('blink.cmp').setup({
+    fuzzy={implementation="lua"},
+    completion={
+        menu={
+            border="none",
+            draw={
+                columns={{"kind_icon"}, {"label", "label_description", gap = 1 }, {"kind"}},
+            },
+        },
+        documentation = {auto_show = true, auto_show_delay_ms = 500},
+    },
+})
+EOF
+
+
 " telescope
 :packadd! telescope.nvim
 lua << EOF
@@ -578,65 +634,6 @@ nnoremap <silent> go; <cmd>Telescope command_history theme=dropdown<CR>
 nnoremap <silent> go. <cmd>Telescope resume<CR>
 
 
+
 "" testing -------------------------------------------------
-:packadd! rebel.nvim
-lua << EOF
-vim.keymap.set({'n', 'x'}, 'gl', '<Plug>(RebelSend)')
-vim.keymap.set('n', 'gll', '<Plug>(RebelSendLine)')
-
-vim.keymap.set('n', '<leader>mo', ':Rebel open ')
-vim.keymap.set('n', '<leader>mq', ':<C-U>Rebel close<CR>', {silent = true})
-vim.keymap.set('n', '<leader>mr', ':<C-U>Rebel restart<CR>', {silent = true})
-vim.keymap.set('n', '<leader>ms', ':1,$Rebel source<CR>', {silent = true})
-vim.keymap.set('n', '<leader>ml', ':<C-U>Rebel send source("load.R")<CR>', {silent = true})
-vim.keymap.set({'n', 'x'}, '<leader>mi', ':Rebel inspect ')
-EOF
-
-lua << EOF
-rebel = require('rebel')
-rebel.setup {
-    -- rename_repl_buffers = false,
-    repl = {
-        -- python = {
-        --     open_fn = function()
-        --         vim.cmd('TermNew')
-        --         return vim.fn.bufnr('%')
-        --     end,
-        -- }
-        -- default = {
-        --     open_fn = function()
-        --         vim.cmd('TermNew')
-        --         return vim.fn.bufnr('%')
-        --     end,
-        -- },
-        -- default = {
-        --     open_fn = function()
-        --         vim.cmd('FloatermNew')
-        --         return vim.fn.bufnr('%')
-        --     end,
-        -- },
-    },
-}
-
-EOF
-
-
-
-"" blink.cmp
-:packadd! blink.cmp
-lua << EOF
-require('blink.cmp').setup({
-    fuzzy={implementation="lua"},
-    completion={
-        menu={
-            border="none",
-            draw={
-                columns={{"kind_icon"}, {"label", "label_description", gap = 1 }, {"kind"}},
-            },
-        },
-        documentation = {auto_show = true, auto_show_delay_ms = 500},
-    },
-})
-EOF
-
 

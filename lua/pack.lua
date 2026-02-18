@@ -3,14 +3,14 @@
 -- source file: 'luafile %'
 
 local repos = {
-    'junegunn/gv.vim',
-    'dcampos/nvim-snippy',
-    'tpope/vim-commentary',
-    'junegunn/vim-easy-align',
-    'tpope/vim-eunuch',
     'tpope/vim-fugitive',
-    'justinmk/vim-sneak',
+    'tpope/vim-commentary',
     'tpope/vim-unimpaired',
+    'tpope/vim-eunuch',
+    'junegunn/gv.vim',
+    'justinmk/vim-sneak',
+    'junegunn/vim-easy-align',
+    'dcampos/nvim-snippy',
     'neovim/nvim-lspconfig',
     'nvim-lua/plenary.nvim',
     'akinsho/toggleterm.nvim',
@@ -23,7 +23,6 @@ local repos = {
     'stevearc/oil.nvim',
     'nvim-telescope/telescope.nvim',
     'saghen/blink.cmp',
-
 }
 
 
