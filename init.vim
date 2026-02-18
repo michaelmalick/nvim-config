@@ -430,12 +430,7 @@ endif
 :packadd! vim-eunuch
 :packadd! vim-unimpaired
 :packadd! nvim-web-devicons
-
-
-"" flutter
 :packadd! plenary.nvim
-:packadd! flutter-tools.nvim
-:lua require('flutter-tools').setup {}
 
 
 "" fugitive
@@ -488,15 +483,6 @@ imap <expr> <S-Tab> snippy#can_jump(-1) ? '<Plug>(snippy-previous)' : '<S-Tab>'
 smap <expr> <Tab> snippy#can_jump(1) ? '<Plug>(snippy-next)' : '<Tab>'
 smap <expr> <S-Tab> snippy#can_jump(-1) ? '<Plug>(snippy-previous)' : '<S-Tab>'
 :lua require('snippy').setup({hl_group = 'diffChanged', enable_auto = false})
-
-
-" diffview
-:packadd! diffview.nvim
-:lua require('diffview').setup()
-nnoremap <silent> <leader>dd <cmd>DiffviewOpen<CR>
-nnoremap <silent> <leader>dc <cmd>DiffviewClose<CR>
-nnoremap <silent> <leader>df <cmd>DiffviewFileHistory<CR>
-nnoremap <silent> <leader>dr <cmd>DiffviewRefresh<CR>
 
 
 "" gitsigns.nvim
@@ -640,7 +626,6 @@ EOF
 :packadd! blink.cmp
 lua << EOF
 require('blink.cmp').setup({
-    keymap = {preset = "super-tab"},
     fuzzy={implementation="lua"},
     completion={
         menu={

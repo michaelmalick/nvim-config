@@ -13,7 +13,6 @@ local repos = {
     'tpope/vim-unimpaired',
     'neovim/nvim-lspconfig',
     'nvim-lua/plenary.nvim',
-    'nvim-flutter/flutter-tools.nvim',
     'akinsho/toggleterm.nvim',
     'tzachar/local-highlight.nvim',
     'catgoose/nvim-colorizer.lua',
@@ -23,13 +22,8 @@ local repos = {
     'mfussenegger/nvim-lint',
     'stevearc/oil.nvim',
     'nvim-telescope/telescope.nvim',
-    'sindrets/diffview.nvim',
-    'voldikss/vim-floaterm',
-    -- 'Vigemus/iron.nvim',
     'saghen/blink.cmp',
-    -- 'ibhagwan/fzf-lua',
-    -- 'jlanzarotta/bufexplorer',
-    -- 'mbbill/undotree',
+
 }
 
 
