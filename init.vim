@@ -421,7 +421,7 @@ nnoremap <silent> ]d <cmd>lua vim.diagnostic.goto_next()<CR>
 "" - personal lua scripts are stored in $VIMHOME/lua
 
 "" Install plugins if needed
-if !isdirectory(stdpath('config') .. '/pack')
+if !isdirectory(stdpath('data') .. '/site/pack')
     :lua require('pack')
 endif
 

@@ -34,7 +34,7 @@ local repos = {
 
 
 local url = 'https://github.com/'
-local dir = vim.fn.stdpath('config') .. '/pack/ext/opt'
+local dir = vim.fn.stdpath('data') .. '/site/pack/ext/opt'
 if vim.fn.isdirectory(dir) == 0 then vim.fn.mkdir(dir, 'p') end
 
 
