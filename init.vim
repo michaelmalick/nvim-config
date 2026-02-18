@@ -1,4 +1,12 @@
 "" Nvim config file
+""
+"" - plug-ins are installed in stdpath('data')/site/pack
+""   - loaded at startup:  .../pack/*/start
+""   - loaded on packadd: .../pack/*/opt
+""   - colorschemes are always sourced in both /start and /opt
+"" - personal plugins are stored in stdpath('config')/pack/mjm/opt
+"" - personal lua scripts are stored in stdpath('config')/lua
+"" - see :h packages
 
 
 "" nvim base settings --------------------------------------
@@ -280,13 +288,6 @@ endfunc
 command! -range CleanText <line1>,<line2>call <SID>clean_text()
 
 
-"" :BackslashReplace
-function! s:backslash_replace() range abort
-    exe (a:firstline) . "," . a:lastline . 's/\\/\//ge'
-endfunc
-command! -range BackslashReplace <line1>,<line2>call <SID>backslash_replace()
-
-
 "" :StripWhitespace
 function! s:strip_whitespace() abort
     let m = winsaveview()
@@ -353,8 +354,8 @@ let g:markdown_fenced_languages = ['r', 'bash=sh', 'vim', 'lua']
 augroup mjm_markdown
     autocmd!
     au BufNewFile,BufRead *.md set ft=markdown
-    au FileType markdown setlocal spell spelllang=en_us
     au FileType markdown setlocal commentstring=<!--\ %s\ -->
+    " au FileType markdown setlocal spell spelllang=en_us
 augroup END
 
 
@@ -448,14 +449,6 @@ EOF
 
 
 "" plug-ins ------------------------------------------------
-"" see :h packages
-"" - plug-ins are installed in $VIMHOME/pack
-""   - loaded at startup:  $VIMHOME/pack/*/start
-""   - loaded on :packadd: $VIMHOME/pack/*/opt
-""   - colorschemes are always sourced in both /start and /opt
-"" - personal lua scripts are stored in $VIMHOME/lua
-
-"" Install plugins if needed
 if !isdirectory(stdpath('data') .. '/site/pack')
     :lua require('pack')
 endif
