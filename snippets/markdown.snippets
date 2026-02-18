@@ -1,19 +1,14 @@
 snippet head
 	---
-	title:  ${1}
+	title:  $0
 	author: Michael Malick
 	date:   `system("date +%Y-%m-%d")`
 	---
 snippet link
-	[${1:description}](${2:url})
+	[${1:description}](${0:url})
 snippet image
-	![${1:description}](${2:file})
-snippet hdate
-	# `strftime("%Y-%m-%d %a")`
-	${1}
-snippet up
-	UPDATED: `strftime("[%Y-%m-%d %a]")`
+	![${1:description}](${0:file})
 snippet code
-	\`\`\`${1}
-	${2}
+	\`\`\`$1
+	$0
 	\`\`\`
