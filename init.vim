@@ -38,12 +38,17 @@ set winborder=single           " Floating window borders
 "" colors --------------------------------------------------
 "" nvim autoloads colorschemes, don't need to use :packadd
 set termguicolors
-if $BACKGROUND == 'light'
-  set background=light
+if exists('$NVIM_BG')
+  let &background = $NVIM_BG
 else
-  set background=dark
+  let &background = dark
 endif
-silent! colorscheme solar
+
+if exists('$NVIM_COLORS')
+    silent! colorscheme $NVIM_COLORS
+else
+    silent! colorscheme retrobox
+endif
 
 augroup highlight_yank
     autocmd!
