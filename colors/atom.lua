@@ -79,13 +79,13 @@ if vim.o.background == 'dark' then
     blue_d    = "#032D47"
 else
     base0     = "#FAFAFA"
-    base1     = "#F0F0F0"
-    base2     = "#E6E6E6"
-    base3     = "#C0C2C0"
-    base4     = "#989E9C"
-    base5     = "#818888"
-    base6     = "#54595E"
-    base7     = "#45464E"
+    base1     = "#EFEFEF"
+    base2     = "#E4E4E3"
+    base3     = "#B9BCBA"
+    base4     = "#8E9392"
+    base5     = "#757B7C"
+    base6     = "#43484E"
+    base7     = "#32343D"
     magenta_a = "#A626A4"
     red_a     = "#CA1243"
     yellow_a  = "#C18401"
@@ -392,7 +392,7 @@ hi(0, "TelescopeSelectionCaret", {fg = red_a})
 
 
 -- Terminal
-vim.g.terminal_color_0  = base0
+vim.g.terminal_color_0  = base2
 vim.g.terminal_color_1  = red_a
 vim.g.terminal_color_2  = green_a
 vim.g.terminal_color_3  = yellow_a
@@ -400,7 +400,7 @@ vim.g.terminal_color_4  = blue_a
 vim.g.terminal_color_5  = magenta_a
 vim.g.terminal_color_6  = cyan_a
 vim.g.terminal_color_7  = base5
-vim.g.terminal_color_8  = base2
+vim.g.terminal_color_8  = base0
 vim.g.terminal_color_9  = red_b
 vim.g.terminal_color_10 = green_b
 vim.g.terminal_color_11 = yellow_b
