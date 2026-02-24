@@ -43,6 +43,10 @@ local yellow_d
 local green_d
 local cyan_d
 local blue_d
+local term_black
+local term_brblack
+local term_white
+local term_brwhite
 
 if vim.o.background == 'dark' then
     base0     = "#002B36"
@@ -77,6 +81,10 @@ if vim.o.background == 'dark' then
     green_d   = "#262F00"
     cyan_d    = "#00312E"
     blue_d    = "#002B47"
+    term_black   = base0
+    term_brblack = base4
+    term_white   = base6
+    term_brwhite = base7
 else
     base0     = "#FDF6E3"
     base1     = "#EFECD8"
@@ -110,6 +118,10 @@ else
     green_d   = "#DBE8B3"
     cyan_d    = "#AAEFE8"
     blue_d    = "#CCE1FF"
+    term_black   = base7
+    term_brblack = base5
+    term_white   = base2
+    term_brwhite = base0
 end
 
 hi(0, "Normal", {fg = base7, bg = base0})
@@ -392,20 +404,20 @@ hi(0, "TelescopeSelectionCaret", {fg = red_a})
 
 
 -- Terminal
-vim.g.terminal_color_0  = base2
+vim.g.terminal_color_0  = term_black
 vim.g.terminal_color_1  = red_a
 vim.g.terminal_color_2  = green_a
 vim.g.terminal_color_3  = yellow_a
 vim.g.terminal_color_4  = blue_a
 vim.g.terminal_color_5  = magenta_a
 vim.g.terminal_color_6  = cyan_a
-vim.g.terminal_color_7  = base5
-vim.g.terminal_color_8  = base0
+vim.g.terminal_color_7  = term_white
+vim.g.terminal_color_8  = term_brblack
 vim.g.terminal_color_9  = red_b
 vim.g.terminal_color_10 = green_b
 vim.g.terminal_color_11 = yellow_b
 vim.g.terminal_color_12 = blue_b
 vim.g.terminal_color_13 = magenta_b
 vim.g.terminal_color_14 = cyan_b
-vim.g.terminal_color_15 = base7
+vim.g.terminal_color_15 = term_brwhite
 
