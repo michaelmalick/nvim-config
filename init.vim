@@ -421,6 +421,12 @@ vim.keymap.set('n', '<leader>mr', ':<C-U>Rebel restart<CR>', {silent = true})
 vim.keymap.set('n', '<leader>ms', ':1,$Rebel source<CR>', {silent = true})
 vim.keymap.set('n', '<leader>ml', ':<C-U>Rebel send source("load.R")<CR>', {silent = true})
 vim.keymap.set({'n', 'x'}, '<leader>mi', ':Rebel inspect ')
+
+vim.keymap.set('n', '<leader>dl', ':<C-U>Rebel send devtools::load_all()<CR>', {silent = true})
+vim.keymap.set('n', '<leader>dd', ':<C-U>Rebel send devtools::document()<CR>', {silent = true})
+vim.keymap.set('n', '<leader>dc', ':<C-U>Rebel send devtools::check()<CR>', {silent = true})
+vim.keymap.set('n', '<leader>dt', ':<C-U>Rebel send devtools::test()<CR>', {silent = true})
+vim.keymap.set('n', '<leader>di', ':<C-U>Rebel send devtools::install()<CR>', {silent = true})
 EOF
 
 lua << EOF
