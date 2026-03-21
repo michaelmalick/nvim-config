@@ -599,6 +599,7 @@ lua << EOF
 require('telescope').setup {
   defaults = {
     selection_caret = "→ ",
+    file_ignore_patterns = { ".git/" },
     preview = {
       hide_on_startup = true,
     },
@@ -618,9 +619,8 @@ require('telescope').setup {
 }
 EOF
 
-nnoremap <leader><leader> <cmd>Telescope find_files theme=dropdown<CR>
+nnoremap <leader><leader> <cmd>Telescope find_files theme=dropdown no_ignore=true hidden=true<CR>
 nnoremap <leader>, <cmd>Telescope buffers theme=dropdown<CR>
-nnoremap <silent> gof <cmd>Telescope find_files theme=dropdown<CR>
 nnoremap <silent> goo <cmd>Telescope oldfiles theme=dropdown<CR>
 nnoremap <silent> gol <cmd>Telescope current_buffer_fuzzy_find theme=dropdown<CR>
 nnoremap <silent> gob <cmd>Telescope buffers theme=dropdown<CR>
