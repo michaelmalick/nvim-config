@@ -56,6 +56,12 @@ vim.lsp.config('lua_ls', {
 vim.api.nvim_create_autocmd('LspAttach', {
     group = vim.api.nvim_create_augroup('mjm_lsp', {}),
     callback = function(ev)
+        -- Turn-off semanic-token syntax in R buffers
+        local client = vim.lsp.get_client_by_id(ev.data.client_id)
+        if client and client.name == 'r_language_server' then
+            client.server_capabilities.semanticTokensProvider = nil
+        end
+
         -- Enable completion triggered by <c-x><c-o>
         vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
 
