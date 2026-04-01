@@ -599,7 +599,7 @@ lua << EOF
 require('telescope').setup {
   defaults = {
     selection_caret = "→ ",
-    file_ignore_patterns = { ".git/", "%.Rd$", "%.jpg$", "%.RData$", "%.rds$", ".DS_Store" },
+    file_ignore_patterns = { ".git/", "%.Rd$", "%.jpg$", "%.png$", "%.RData$", "%.rds$", "%.xlsx$", ".DS_Store" },
     preview = {
       hide_on_startup = true,
     },
