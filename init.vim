@@ -366,6 +366,7 @@ augroup END
 
 
 "" rstats --------------------------------------------------
+let g:r_indent_align_args = 0  "" Don't align intent to opening paren
 augroup mjm_rstats
     autocmd!
     au FileType rmd setlocal spell spelllang=en_us
@@ -376,8 +377,6 @@ augroup mjm_rstats
     au FileType r exe 'lua vim.diagnostic.enable(false)'
     au FileType r nnoremap <silent> <leader>mf :!air format %<CR>
     au FileType r nnoremap <silent> <leader>mF :!air format .<CR>
-    au FileType r setlocal indentexpr=
-    au FileType r setlocal smartindent
 augroup END
 
 
