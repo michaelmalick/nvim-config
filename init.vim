@@ -426,6 +426,7 @@ vim.keymap.set('n', '<leader>dd', ':<C-U>Rebel send devtools::document()<CR>', {
 vim.keymap.set('n', '<leader>dc', ':<C-U>Rebel send devtools::check()<CR>', {silent = true})
 vim.keymap.set('n', '<leader>dt', ':<C-U>Rebel send devtools::test()<CR>', {silent = true})
 vim.keymap.set('n', '<leader>di', ':<C-U>Rebel send devtools::install()<CR>', {silent = true})
+vim.keymap.set('n', '<leader>dn', ':<C-U>Rebel send devtools::lint()<CR>', {silent = true})
 EOF
 
 lua << EOF
