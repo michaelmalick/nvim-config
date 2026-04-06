@@ -400,6 +400,14 @@ augroup END
 
 
 
+"" git -----------------------------------------------------
+augroup mjm_git
+    autocmd!
+    au FileType gitcommit setlocal spell spelllang=en_us
+augroup END
+
+
+
 "" diagnostics ---------------------------------------------
 command! DiagOff exe 'lua vim.diagnostic.enable(false)'
 command! DiagOn  exe 'lua vim.diagnostic.enable(true)'
