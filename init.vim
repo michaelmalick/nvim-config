@@ -400,6 +400,14 @@ augroup END
 
 
 
+"" html + css + javascript ---------------------------------
+augroup mjm_html
+    autocmd!
+    au FileType html,css,javascript setlocal shiftwidth=2 tabstop=2 softtabstop=2
+augroup END
+
+
+
 "" git -----------------------------------------------------
 augroup mjm_git
     autocmd!
