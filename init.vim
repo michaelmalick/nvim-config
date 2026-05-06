@@ -52,7 +52,7 @@ endif
 
 augroup highlight_yank
     autocmd!
-    au TextYankPost * silent! lua vim.highlight.on_yank {higroup = 'Visual', timeout = 300}
+    au TextYankPost * silent! lua vim.hl.on_yank {higroup = 'Visual', timeout = 300}
 augroup END
 
 
@@ -411,8 +411,8 @@ augroup END
 "" diagnostics ---------------------------------------------
 command! DiagOff exe 'lua vim.diagnostic.enable(false)'
 command! DiagOn  exe 'lua vim.diagnostic.enable(true)'
-nnoremap <silent> [d <cmd>lua vim.diagnostic.goto_prev()<CR>
-nnoremap <silent> ]d <cmd>lua vim.diagnostic.goto_next()<CR>
+nnoremap <silent> [d <cmd>lua vim.diagnostic.jump({count = -1})<CR>
+nnoremap <silent> ]d <cmd>lua vim.diagnostic.jump({count = 1})<CR>
 
 
 
