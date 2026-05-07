@@ -1,9 +1,5 @@
 "" Nvim config file
 ""
-"" - plug-ins are installed in stdpath('data')/site/pack
-""   - loaded at startup:  .../pack/*/start
-""   - loaded on packadd: .../pack/*/opt
-""   - colorschemes are always sourced in both /start and /opt
 "" - personal plugins are stored in stdpath('config')/pack/mjm/opt
 "" - personal lua scripts are stored in stdpath('config')/lua
 "" - see :h packages
@@ -36,7 +32,6 @@ set winborder=single           " Floating window borders
 
 
 "" colors --------------------------------------------------
-"" nvim autoloads colorschemes, don't need to use :packadd
 set termguicolors
 if exists('$NVIM_BG')
   let &background = $NVIM_BG
@@ -461,20 +456,38 @@ EOF
 
 
 "" plug-ins ------------------------------------------------
-if !isdirectory(stdpath('data') .. '/site/pack')
-    :lua require('pack')
-endif
+"" :h vim.pack
+"" :lua vim.plug.update()
 
+lua << EOF
+vim.pack.add({
+    'https://github.com/tpope/vim-fugitive',
+    'https://github.com/tpope/vim-commentary',
+    'https://github.com/tpope/vim-unimpaired',
+    'https://github.com/tpope/vim-eunuch',
+    'https://github.com/junegunn/gv.vim',
+    'https://github.com/justinmk/vim-sneak',
+    'https://github.com/junegunn/vim-easy-align',
+    'https://github.com/dcampos/nvim-snippy',
+    'https://github.com/neovim/nvim-lspconfig',
+    'https://github.com/nvim-lua/plenary.nvim',
+    'https://github.com/akinsho/toggleterm.nvim',
+    'https://github.com/tzachar/local-highlight.nvim',
+    'https://github.com/catgoose/nvim-colorizer.lua',
+    'https://github.com/lewis6991/gitsigns.nvim',
+    'https://github.com/nvim-tree/nvim-web-devicons',
+    'https://github.com/nvim-lualine/lualine.nvim',
+    'https://github.com/mfussenegger/nvim-lint',
+    'https://github.com/stevearc/oil.nvim',
+    'https://github.com/nvim-telescope/telescope.nvim',
+})
+EOF
+
+"" Load LSP config
 :lua require('lsp')
-:packadd! vim-commentary
-:packadd! vim-eunuch
-:packadd! vim-unimpaired
-:packadd! nvim-web-devicons
-:packadd! plenary.nvim
 
 
 "" fugitive
-:packadd! vim-fugitive
 nnoremap <silent> <leader>gg :Gtabedit :<CR>
 nnoremap <silent> <leader>gs :Gclog! -g stash<CR>
 nnoremap <silent> <leader>gd :Gvdiffsplit<CR>
@@ -484,12 +497,10 @@ command! Gtdiff tabedit %|Gdiff
 
 
 "" gv
-:packadd! gv.vim
 nnoremap <silent> <leader>gl :GV --all<CR>
 
 
 "" oil.nvim
-:packadd! oil.nvim
 :lua require('oil').setup()
 nnoremap <silent> - <cmd>Oil<CR>
 augroup mjm_oil
@@ -499,7 +510,6 @@ augroup END
 
 
 "" sneak
-:packadd! vim-sneak
 map f <Plug>Sneak_f
 map F <Plug>Sneak_F
 map t <Plug>Sneak_t
@@ -507,7 +517,6 @@ map T <Plug>Sneak_T
 
 
 "" easy-align
-:packadd! vim-easy-align
 xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 if !exists('g:easy_align_delimiters')
@@ -517,7 +526,6 @@ let g:easy_align_delimiters['<'] = { 'pattern': '<-' }
 
 
 "" snippy
-:packadd! nvim-snippy
 imap <expr> <Tab> snippy#can_expand_or_advance() ? '<Plug>(snippy-expand-or-advance)' : '<Tab>'
 imap <expr> <S-Tab> snippy#can_jump(-1) ? '<Plug>(snippy-previous)' : '<S-Tab>'
 smap <expr> <Tab> snippy#can_jump(1) ? '<Plug>(snippy-next)' : '<Tab>'
@@ -526,7 +534,6 @@ smap <expr> <S-Tab> snippy#can_jump(-1) ? '<Plug>(snippy-previous)' : '<S-Tab>'
 
 
 "" gitsigns.nvim
-:packadd! gitsigns.nvim
 :lua require('gitsigns').setup()
 nnoremap <silent> [g <cmd>Gitsigns prev_hunk<CR>
 nnoremap <silent> ]g <cmd>Gitsigns next_hunk<CR>
@@ -539,17 +546,14 @@ nnoremap <silent> <leader>hb <cmd>Gitsigns blame_line<CR>
 
 
 "" local-highlight
-:packadd! local-highlight.nvim
 :lua require('local-highlight').setup({animate={enabled=false}})
 
 
 "" nvim-colorizer
-:packadd! nvim-colorizer.lua
 :lua require('colorizer').setup({user_default_options={names=false}})
 
 
 "" nvim-lint
-:packadd! nvim-lint
 :lua require('lint').linters_by_ft = {python = {'ruff'}}
 augroup linters
     autocmd!
@@ -559,7 +563,6 @@ augroup END
 
 
 "" lualine
-:packadd! lualine.nvim
 lua << EOF
 require('lualine').setup({
     options={
@@ -571,13 +574,11 @@ EOF
 
 
 "" toggleterm
-:packadd! toggleterm.nvim
 :lua require('toggleterm').setup{}
 nnoremap <silent>got :<C-U>ToggleTerm<CR>
 
 
 " telescope
-:packadd! telescope.nvim
 lua << EOF
 require('telescope').setup {
   defaults = {
