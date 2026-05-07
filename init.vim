@@ -57,25 +57,6 @@ augroup END
 
 
 
-"" statusline ----------------------------------------------
-set laststatus=2                               " Always show status line
-set statusline=                                " Initialize empty status line
-set statusline+=\ %n\                          " Buffer number
-set statusline+=\ %f\                          " File name
-set statusline+=%m                             " Modified flag
-set statusline+=%r                             " Read only flag
-set statusline+=%h                             " Help flag
-set statusline+=%w                             " Preview window flag
-set statusline +=\ \ %{fugitive#statusline()}  " Git branch
-set statusline+=%=                             " Switch to right side
-set statusline +=\ %{&ff}\                     " File format
-let &stl .= ' %{&fenc !=# "" ? &fenc : &enc} ' " File encoding
-set statusline+=\ %3l:%-2c                     " Current line:column
-set statusline+=\ \ %L                         " Total lines
-set statusline+=\ \ %P\                        " Percentage of file showing
-
-
-
 "" terminal ------------------------------------------------
 tnoremap <Esc> <C-\><C-n>
 tnoremap <C-h> <C-\><C-n><C-w>h
