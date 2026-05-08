@@ -188,6 +188,14 @@ augroup END
 
 
 
+"" checkhealth ---------------------------------------------
+augroup mjm_checkhealth
+    autocmd!
+    au FileType checkhealth nmap <silent><buffer> gq :quit<CR>
+augroup END
+
+
+
 "" commands + functions ------------------------------------
 
 "" :CD
