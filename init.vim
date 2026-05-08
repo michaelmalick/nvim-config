@@ -351,7 +351,6 @@ augroup mjm_rstats
     au BufNewFile,BufRead *.rmd set ft=rmd.markdown
     au BufNewFile,BufRead *.stan set ft=cpp
     au FileType r set commentstring=#\ %s
-    au FileType r exe 'lua vim.diagnostic.enable(false)'
     au FileType r nnoremap <silent> <leader>mf :!air format %<CR>
     au FileType r nnoremap <silent> <leader>mF :!air format .<CR>
 augroup END
