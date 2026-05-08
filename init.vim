@@ -631,6 +631,7 @@ nnoremap <silent> goc <cmd>Telescope git_bcommits theme=dropdown<CR>
 nnoremap <silent> goC <cmd>Telescope git_commits theme=dropdown<CR>
 nnoremap <silent> go/ <cmd>Telescope search_history theme=dropdown<CR>
 nnoremap <silent> go; <cmd>Telescope command_history theme=dropdown<CR>
+nnoremap <silent> god <cmd>Telescope diagnostics theme=dropdown<CR>
 nnoremap <silent> go. <cmd>Telescope resume<CR>
 
 
