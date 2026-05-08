@@ -20,6 +20,24 @@ vim.lsp.enable('ruff') -- linting
 vim.lsp.enable('lua_ls')
 
 
+-- Diagnostic config
+vim.diagnostic.config({
+  virtual_lines = { current_line = true },
+  underline = false,
+  severity_sort = true,
+  update_in_insert = false,
+  signs = {
+    text = {
+      [vim.diagnostic.severity.ERROR] = '✘',
+      [vim.diagnostic.severity.WARN]  = '▲',
+      [vim.diagnostic.severity.INFO]  = 'ℹ',
+      [vim.diagnostic.severity.HINT]  = '⚑',
+    },
+  },
+})
+
+
+-- LSP attaching
 vim.api.nvim_create_autocmd('LspAttach', {
     group = vim.api.nvim_create_augroup('mjm_lsp', { clear = true }),
     callback = function(ev)

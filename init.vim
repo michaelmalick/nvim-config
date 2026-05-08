@@ -380,6 +380,7 @@ augroup mjm_rstats
 augroup END
 
 
+
 "" python --------------------------------------------------
 command! CheckRuff cexpr system('ruff check . --output-format concise') | copen
 
@@ -421,9 +422,9 @@ augroup END
 "" diagnostics ---------------------------------------------
 command! DiagOff exe 'lua vim.diagnostic.enable(false)'
 command! DiagOn  exe 'lua vim.diagnostic.enable(true)'
-nnoremap <silent> [d <cmd>lua vim.diagnostic.jump({ count = -1, float = true })<CR>
-nnoremap <silent> ]d <cmd>lua vim.diagnostic.jump({ count = 1, float = true })<CR>
-nnoremap <silent> <leader>e <cmd>lua vim.diagnostic.open_float()<CR>
+nnoremap <silent> [d <cmd>lua vim.diagnostic.jump({count = -1})<CR>
+nnoremap <silent> ]d <cmd>lua vim.diagnostic.jump({count = 1})<CR>
+nnoremap <silent> <leader>do <cmd>lua vim.diagnostic.open_float()<CR>
 
 
 
@@ -439,16 +440,12 @@ vim.keymap.set('n', '<leader>mr', ':<C-U>Rebel restart<CR>', {silent = true})
 vim.keymap.set('n', '<leader>ms', ':1,$Rebel source<CR>', {silent = true})
 vim.keymap.set('n', '<leader>ml', ':<C-U>Rebel send source("load.R")<CR>', {silent = true})
 vim.keymap.set({'n', 'x'}, '<leader>mi', ':Rebel inspect ')
-vim.keymap.set('n', '<leader>md', function()
-  local filepath = vim.fn.expand('%:p')
-  vim.cmd(string.format('Rebel send quarto::quarto_render("%s")', filepath))
-end, { silent = true })
 
-vim.keymap.set('n', '<leader>dl', ':<C-U>Rebel send devtools::load_all()<CR>', {silent = true})
-vim.keymap.set('n', '<leader>dd', ':<C-U>Rebel send devtools::document()<CR>', {silent = true})
-vim.keymap.set('n', '<leader>dc', ':<C-U>Rebel send devtools::check()<CR>', {silent = true})
-vim.keymap.set('n', '<leader>dt', ':<C-U>Rebel send devtools::test()<CR>', {silent = true})
-vim.keymap.set('n', '<leader>di', ':<C-U>Rebel send devtools::install()<CR>', {silent = true})
+vim.keymap.set('n', '<leader>mdl', ':<C-U>Rebel send devtools::load_all()<CR>', {silent = true})
+vim.keymap.set('n', '<leader>mdd', ':<C-U>Rebel send devtools::document()<CR>', {silent = true})
+vim.keymap.set('n', '<leader>mdc', ':<C-U>Rebel send devtools::check()<CR>', {silent = true})
+vim.keymap.set('n', '<leader>mdt', ':<C-U>Rebel send devtools::test()<CR>', {silent = true})
+vim.keymap.set('n', '<leader>mdi', ':<C-U>Rebel send devtools::install()<CR>', {silent = true})
 EOF
 
 lua << EOF
