@@ -481,7 +481,7 @@ EOF
 "" plug-ins ------------------------------------------------
 "" :h vim.pack
 "" :lua vim.plug.update()
-"" lua vim.pack.del({ 'nvim-lint' })
+"" :lua vim.pack.del({ 'nvim-lint' })
 
 lua << EOF
 vim.pack.add({
