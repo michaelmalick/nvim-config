@@ -457,6 +457,7 @@ EOF
 "" plug-ins ------------------------------------------------
 "" :h vim.pack
 "" :lua vim.plug.update()
+"" lua vim.pack.del({ 'nvim-lint' })
 
 lua << EOF
 vim.pack.add({
@@ -468,7 +469,6 @@ vim.pack.add({
     'https://github.com/justinmk/vim-sneak',
     'https://github.com/junegunn/vim-easy-align',
     'https://github.com/dcampos/nvim-snippy',
-    'https://github.com/neovim/nvim-lspconfig',
     'https://github.com/nvim-lua/plenary.nvim',
     'https://github.com/akinsho/toggleterm.nvim',
     'https://github.com/tzachar/local-highlight.nvim',
@@ -476,7 +476,6 @@ vim.pack.add({
     'https://github.com/lewis6991/gitsigns.nvim',
     'https://github.com/nvim-tree/nvim-web-devicons',
     'https://github.com/nvim-lualine/lualine.nvim',
-    'https://github.com/mfussenegger/nvim-lint',
     'https://github.com/stevearc/oil.nvim',
     'https://github.com/nvim-telescope/telescope.nvim',
 })
@@ -550,15 +549,6 @@ nnoremap <silent> <leader>hb <cmd>Gitsigns blame_line<CR>
 
 "" nvim-colorizer
 :lua require('colorizer').setup({user_default_options={names=false}})
-
-
-"" nvim-lint
-:lua require('lint').linters_by_ft = {python = {'ruff'}}
-augroup linters
-    autocmd!
-    au FileType python lua require('lint').try_lint()
-    au BufWritePost * lua require('lint').try_lint()
-augroup END
 
 
 "" lualine
