@@ -350,6 +350,21 @@ augroup END
 
 "" rstats --------------------------------------------------
 let g:r_indent_align_args = 0  "" Don't align intent to opening paren
+
+function! s:check_jarl() abort
+    let l:output = system('jarl check . --output-format concise')
+    " Strip OSC-8 hyperlink escape sequences: ESC ] 8 ; ; URI ESC \ TEXT ESC ] 8 ; ; ESC \
+    let l:output = substitute(l:output, '\e\]8;;[^\e]*\e\\', '', 'g')
+    let l:output = substitute(l:output, '\e\\', '', 'g')
+
+    let l:save_efm = &errorformat
+    set errorformat=%f\ [%l:%c]\ %m
+    cexpr l:output
+    let &errorformat = l:save_efm
+    copen
+endfunction
+command! CheckJarl call s:check_jarl()
+
 augroup mjm_rstats
     autocmd!
     au FileType rmd setlocal spell spelllang=en_us
@@ -357,19 +372,24 @@ augroup mjm_rstats
     au BufNewFile,BufRead *.rmd set ft=rmd.markdown
     au BufNewFile,BufRead *.stan set ft=cpp
     au FileType r set commentstring=#\ %s
-    au FileType r nnoremap <silent> <leader>mf :!air format %<CR>
-    au FileType r nnoremap <silent> <leader>mF :!air format .<CR>
+    au FileType r nnoremap <silent> <buffer> <leader>mf :!air format %<CR>
+    au FileType r nnoremap <silent> <buffer> <leader>mF :!air format .<CR>
+    au FileType r nnoremap <silent> <buffer> <leader>mc :CheckJarl<CR>
+    au FileType r nnoremap <silent> <buffer> <leader>mk :!jarl check --fix %<CR>
+    au FileType r nnoremap <silent> <buffer> <leader>mK :!jarl check --fix .<CR>
 augroup END
 
 
-
 "" python --------------------------------------------------
+command! CheckRuff cexpr system('ruff check . --output-format concise') | copen
+
 augroup mjm_python
     autocmd!
-    au FileType python nnoremap <silent> <leader>mf :!ruff format %<CR>
-    au FileType python nnoremap <silent> <leader>mF :!ruff format .<CR>
-    au FileType python nnoremap <silent> <leader>mk :!ruff check --fix %<CR>
-    au FileType python nnoremap <silent> <leader>mK :!ruff check --fix .<CR>
+    au FileType python nnoremap <silent> <buffer> <leader>mf :!ruff format %<CR>
+    au FileType python nnoremap <silent> <buffer> <leader>mF :!ruff format .<CR>
+    au FileType python nnoremap <silent> <buffer> <leader>mc :CheckRuff<CR>
+    au FileType python nnoremap <silent> <buffer> <leader>mk :!ruff check --fix %<CR>
+    au FileType python nnoremap <silent> <buffer> <leader>mK :!ruff check --fix .<CR>
 augroup END
 
 
@@ -429,7 +449,6 @@ vim.keymap.set('n', '<leader>dd', ':<C-U>Rebel send devtools::document()<CR>', {
 vim.keymap.set('n', '<leader>dc', ':<C-U>Rebel send devtools::check()<CR>', {silent = true})
 vim.keymap.set('n', '<leader>dt', ':<C-U>Rebel send devtools::test()<CR>', {silent = true})
 vim.keymap.set('n', '<leader>di', ':<C-U>Rebel send devtools::install()<CR>', {silent = true})
-vim.keymap.set('n', '<leader>dn', ':<C-U>Rebel send devtools::lint()<CR>', {silent = true})
 EOF
 
 lua << EOF
