@@ -28,6 +28,7 @@ set undofile                   " Enable persistent undo
 set textwidth=80               " Wrap text at column 80
 set list lcs=trail:·,tab:»·    " Show invisibles
 set winborder=single           " Floating window borders
+set jumpoptions+=view          " Remember viewport on jumps
 
 
 
