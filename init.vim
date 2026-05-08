@@ -1,8 +1,6 @@
 "" Nvim config file
 ""
-"" - personal plugins are stored in stdpath('config')/pack/mjm/opt
-"" - personal lua scripts are stored in stdpath('config')/lua
-"" - see :h packages
+"" :checkhealth vim.deprecated
 
 
 "" nvim base settings --------------------------------------
@@ -395,8 +393,9 @@ augroup END
 "" diagnostics ---------------------------------------------
 command! DiagOff exe 'lua vim.diagnostic.enable(false)'
 command! DiagOn  exe 'lua vim.diagnostic.enable(true)'
-nnoremap <silent> [d <cmd>lua vim.diagnostic.jump({count = -1})<CR>
-nnoremap <silent> ]d <cmd>lua vim.diagnostic.jump({count = 1})<CR>
+nnoremap <silent> [d <cmd>lua vim.diagnostic.jump({ count = -1, float = true })<CR>
+nnoremap <silent> ]d <cmd>lua vim.diagnostic.jump({ count = 1, float = true })<CR>
+nnoremap <silent> <leader>e <cmd>lua vim.diagnostic.open_float()<CR>
 
 
 
