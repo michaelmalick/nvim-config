@@ -351,19 +351,17 @@ augroup END
 "" rstats --------------------------------------------------
 let g:r_indent_align_args = 0  "" Don't align intent to opening paren
 
-function! s:check_jarl() abort
-    let l:output = system('jarl check . --output-format concise')
-    " Strip OSC-8 hyperlink escape sequences: ESC ] 8 ; ; URI ESC \ TEXT ESC ] 8 ; ; ESC \
+function! s:check_jarl(scope) abort
+    let l:output = system('jarl check ' . a:scope . ' --output-format concise')
     let l:output = substitute(l:output, '\e\]8;;[^\e]*\e\\', '', 'g')
     let l:output = substitute(l:output, '\e\\', '', 'g')
-
     let l:save_efm = &errorformat
     set errorformat=%f\ [%l:%c]\ %m
     cexpr l:output
     let &errorformat = l:save_efm
     copen
 endfunction
-command! CheckJarl call s:check_jarl()
+command! -nargs=1 -complete=file CheckJarl call s:check_jarl(<q-args>)
 
 augroup mjm_rstats
     autocmd!
@@ -374,7 +372,8 @@ augroup mjm_rstats
     au FileType r set commentstring=#\ %s
     au FileType r nnoremap <silent> <buffer> <leader>mf :!air format %<CR>
     au FileType r nnoremap <silent> <buffer> <leader>mF :!air format .<CR>
-    au FileType r nnoremap <silent> <buffer> <leader>mc :CheckJarl<CR>
+    au FileType r nnoremap <silent> <buffer> <leader>mc :CheckJarl %<CR>
+    au FileType r nnoremap <silent> <buffer> <leader>mC :CheckJarl .<CR>
     au FileType r nnoremap <silent> <buffer> <leader>mk :!jarl check --fix %<CR>
     au FileType r nnoremap <silent> <buffer> <leader>mK :!jarl check --fix .<CR>
 augroup END
@@ -382,13 +381,22 @@ augroup END
 
 
 "" python --------------------------------------------------
-command! CheckRuff cexpr system('ruff check . --output-format concise') | copen
+function! s:check_ruff(scope) abort
+    let l:output = system('ruff check ' . a:scope . ' --output-format concise')
+    let l:save_efm = &errorformat
+    set errorformat=%f:%l:%c:\ %m
+    cexpr l:output
+    let &errorformat = l:save_efm
+    copen
+endfunction
+command! -nargs=1 -complete=file CheckRuff call s:check_ruff(<q-args>)
 
 augroup mjm_python
     autocmd!
     au FileType python nnoremap <silent> <buffer> <leader>mf :!ruff format %<CR>
     au FileType python nnoremap <silent> <buffer> <leader>mF :!ruff format .<CR>
-    au FileType python nnoremap <silent> <buffer> <leader>mc :CheckRuff<CR>
+    au FileType python nnoremap <silent> <buffer> <leader>mc :CheckRuff %<CR>
+    au FileType python nnoremap <silent> <buffer> <leader>mC :CheckRuff .<CR>
     au FileType python nnoremap <silent> <buffer> <leader>mk :!ruff check --fix %<CR>
     au FileType python nnoremap <silent> <buffer> <leader>mK :!ruff check --fix .<CR>
 augroup END
