@@ -24,7 +24,8 @@ set noswapfile                 " Don't create swapfiles
 set clipboard+=unnamedplus     " Use system clipboard too
 set undofile                   " Enable persistent undo
 set textwidth=80               " Wrap text at column 80
-set list lcs=trail:·,tab:»·    " Show invisibles
+set list                       " Show invisibles
+set lcs=trail:·,tab:»·,nbsp:ϟ  " Invisible chars
 set winborder=single           " Floating window borders
 set jumpoptions+=view          " Remember viewport on jumps
 
