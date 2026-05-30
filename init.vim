@@ -112,6 +112,7 @@ nnoremap j gj
 nnoremap k gk
 nnoremap <BS> <C-^>
 inoremap <silent> <C-]> <C-r>=repeat('-', 61-virtcol('.'))<CR>
+inoremap <silent> <C-\> <C-r>=repeat('-', 81-virtcol('.'))<CR>
 nnoremap <silent> gh :nohlsearch<CR>
 
 "" notes and files
@@ -450,11 +451,10 @@ vim.keymap.set('n', '<leader>ms', ':1,$Rebel source<CR>', {silent = true})
 vim.keymap.set('n', '<leader>ml', ':<C-U>Rebel send source("load.R")<CR>', {silent = true})
 vim.keymap.set({'n', 'x'}, '<leader>mi', ':Rebel inspect ')
 
-vim.keymap.set('n', '<leader>mdl', ':<C-U>Rebel send devtools::load_all()<CR>', {silent = true})
-vim.keymap.set('n', '<leader>mdd', ':<C-U>Rebel send devtools::document()<CR>', {silent = true})
-vim.keymap.set('n', '<leader>mdc', ':<C-U>Rebel send devtools::check()<CR>', {silent = true})
-vim.keymap.set('n', '<leader>mdt', ':<C-U>Rebel send devtools::test()<CR>', {silent = true})
-vim.keymap.set('n', '<leader>mdi', ':<C-U>Rebel send devtools::install()<CR>', {silent = true})
+vim.keymap.set('n', '<leader>mdl', ':<C-U>Rebel send pkgload::load_all()<CR>', {silent = true})
+vim.keymap.set('n', '<leader>mdd', ':<C-U>Rebel send roxygen2::roxygenize()<CR>', {silent = true})
+vim.keymap.set('n', '<leader>mdc', ':<C-U>Rebel send rcmdcheck::rcmdcheck(args = "--no-manual")<CR>', {silent = true})
+vim.keymap.set('n', '<leader>mdt', ':<C-U>Rebel send testthat::test_local()<CR>', {silent = true})
 EOF
 
 lua << EOF
