@@ -454,7 +454,7 @@ vim.keymap.set({'n', 'x'}, '<leader>mi', ':Rebel inspect ')
 vim.keymap.set('n', '<leader>mdl', ':<C-U>Rebel send pkgload::load_all()<CR>', {silent = true})
 vim.keymap.set('n', '<leader>mdd', ':<C-U>Rebel send roxygen2::roxygenize()<CR>', {silent = true})
 vim.keymap.set('n', '<leader>mdc', ':<C-U>Rebel send rcmdcheck::rcmdcheck(args = "--no-manual")<CR>', {silent = true})
-vim.keymap.set('n', '<leader>mdt', ':<C-U>Rebel send testthat::test_local()<CR>', {silent = true})
+vim.keymap.set('n', '<leader>mdt', ':<C-U>Rebel send tinytest::run_test_dir()<CR>', {silent = true})
 EOF
 
 lua << EOF
