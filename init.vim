@@ -646,4 +646,9 @@ nnoremap <silent> go. <cmd>Telescope resume<CR>
 
 
 "" testing -------------------------------------------------
-
+"" :h ui2
+:lua require('vim._core.ui2').enable()
+augroup mjm_pager
+    autocmd!
+    au FileType pager nmap <silent><buffer> gq :hide<CR>
+augroup END
