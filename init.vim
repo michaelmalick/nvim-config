@@ -531,7 +531,15 @@ nnoremap <silent> <leader>gl :GV --all<CR>
 
 
 "" oil.nvim
-:lua require('oil').setup()
+lua << EOF
+require('oil').setup({
+    keymaps = {
+        ["<C-h>"] = false,
+        ["<C-l>"] = false,
+        ["gr"] = "actions.refresh",
+    }
+})
+EOF
 nnoremap <silent> - <cmd>Oil<CR>
 augroup mjm_oil
     autocmd!
