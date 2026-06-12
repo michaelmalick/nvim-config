@@ -68,13 +68,12 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
         -- Buffer local mappings
         local opts = { buffer = ev.buf }
-        vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
-        vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-        vim.keymap.set('n', '<C-]>', vim.lsp.buf.definition, opts)
         vim.keymap.set('n', 'K',  vim.lsp.buf.hover, opts)
-        vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
-        vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
-        vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, opts)
-        vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
+        vim.keymap.set('n', '<C-]>', vim.lsp.buf.definition, opts)
+        vim.keymap.set('n', '<leader>ld', vim.lsp.buf.declaration, opts)
+        vim.keymap.set('n', '<leader>li', vim.lsp.buf.implementation, opts)
+        vim.keymap.set('n', '<leader>lr', vim.lsp.buf.rename, opts)
+        vim.keymap.set('n', '<leader>lc', vim.lsp.buf.code_action, opts)
+        vim.keymap.set('n', '<leader>lh', vim.lsp.buf.signature_help, opts)
     end,
 })
