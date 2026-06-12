@@ -267,13 +267,12 @@ nnoremap <silent> yok :ToggleLocation<CR>
 
 "" :CleanText
 function! s:clean_text() range abort
-    exe (a:firstline) . "," . a:lastline . 's/\$/\\$/ge'
     exe (a:firstline) . "," . a:lastline . 's/”/"/ge'
     exe (a:firstline) . "," . a:lastline . 's/“/"/ge'
     exe (a:firstline) . "," . a:lastline . "s/‘/'/ge"
     exe (a:firstline) . "," . a:lastline . "s/’/'/ge"
-    exe (a:firstline) . "," . a:lastline . 's/ — /--/ge'
     exe (a:firstline) . "," . a:lastline . 's/—/--/ge'
+    exe (a:firstline) . "," . a:lastline . 's/→/->/ge'
 endfunc
 command! -range CleanText <line1>,<line2>call <SID>clean_text()
 
