@@ -439,22 +439,24 @@ nnoremap <silent> <leader>do <cmd>lua vim.diagnostic.open_float()<CR>
 
 "" rebel ---------------------------------------------------
 :packadd! rebel.nvim
-lua << EOF
-vim.keymap.set({'n', 'x'}, 'gl', '<Plug>(RebelSend)')
-vim.keymap.set('n', 'gll', '<Plug>(RebelSendLine)')
+nmap gl <Plug>(RebelSend)
+xmap gl <Plug>(RebelSend)
+nmap gll <Plug>(RebelSendLine)
 
-vim.keymap.set('n', '<leader>mo', ':Rebel open ')
-vim.keymap.set('n', '<leader>mq', ':<C-U>Rebel close<CR>', {silent = true})
-vim.keymap.set('n', '<leader>mr', ':<C-U>Rebel restart<CR>', {silent = true})
-vim.keymap.set('n', '<leader>ms', ':1,$Rebel source<CR>', {silent = true})
-vim.keymap.set('n', '<leader>ml', ':<C-U>Rebel send source("load.R")<CR>', {silent = true})
-vim.keymap.set({'n', 'x'}, '<leader>mi', ':Rebel inspect ')
+nnoremap <leader>mo :Rebel open<Space>
+nnoremap <silent> <leader>mq :<C-U>Rebel close<CR>
+nnoremap <silent> <leader>mr :<C-U>Rebel restart<CR>
+nnoremap <silent> <leader>ms :1,$Rebel source<CR>
+nnoremap <silent> <leader>ml :<C-U>Rebel send source("load.R")<CR>
+nnoremap <leader>mi :Rebel inspect<Space>
+xnoremap <leader>mi :Rebel inspect<Space>
 
-vim.keymap.set('n', '<leader>mdl', ':<C-U>Rebel send pkgload::load_all()<CR>', {silent = true})
-vim.keymap.set('n', '<leader>mdd', ':<C-U>Rebel send roxygen2::roxygenize()<CR>', {silent = true})
-vim.keymap.set('n', '<leader>mdc', ':<C-U>Rebel send rcmdcheck::rcmdcheck(args = "--no-manual")<CR>', {silent = true})
-vim.keymap.set('n', '<leader>mdt', ':<C-U>Rebel send tinytest::run_test_dir()<CR>', {silent = true})
-EOF
+nnoremap <silent> <leader>mdl :<C-U>Rebel send pkgload::load_all()<CR>
+nnoremap <silent> <leader>mdd :<C-U>Rebel send roxygen2::roxygenize()<CR>
+nnoremap <silent> <leader>mdc :<C-U>Rebel send rcmdcheck::rcmdcheck(args = "--no-manual")<CR>
+nnoremap <silent> <leader>mdt :<C-U>Rebel send tinytest::run_test_dir()<CR>
+nnoremap <silent> <leader>mdT :<C-U>execute 'Rebel send tinytest::run_test_file("' . expand('%:p') . '")'<CR>
+nnoremap <silent> <leader>mdi :<C-U>Rebel send remotes::install_local()<CR>
 
 lua << EOF
 rebel = require('rebel')
