@@ -63,7 +63,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
         -- If attached LSP supports completion, add it to native engine
         if client and client:supports_method('textDocument/completion') then
-          vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true })
+          vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = false })
         end
 
         -- Buffer local mappings
